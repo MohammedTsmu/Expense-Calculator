@@ -181,7 +181,8 @@ namespace Expense_Calculator.Reports
         {
             if (dgvReport.Rows.Count == 0)
             {
-                MessageBox.Show("لا توجد بيانات للتصدير", "تحذير", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                lblMessage.Text = "لا توجد بيانات للتصدير";
+                lblMessage.ForeColor = Color.Red;
                 return;
             }
 
@@ -201,71 +202,111 @@ namespace Expense_Calculator.Reports
                         PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
                         pdfDoc.Open();
 
-                        // Add title
+                        // Add company name
                         var titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 16, iTextSharp.text.Font.BOLD);
-                        var title = new Paragraph("تقرير المصروفات", titleFont)
+                        var companyName = new Paragraph("اسم الشركة", titleFont)
                         {
                             Alignment = Element.ALIGN_CENTER
                         };
-                        pdfDoc.Add(title);
+                        pdfDoc.Add(companyName);
 
-                        pdfDoc.Add(new Paragraph("\n")); // Line break
+                        // Add report title
+                        var reportTitle = new Paragraph("تقرير المصروفات", titleFont)
+                        {
+                            Alignment = Element.ALIGN_CENTER
+                        };
+                        pdfDoc.Add(reportTitle);
 
-                        // Create a table with the number of DataGridView columns
-                        PdfPTable pdfTable = new PdfPTable(dgvReport.Columns.Count);
-                        pdfTable.WidthPercentage = 100;
-                        pdfTable.RunDirection = PdfWriter.RUN_DIRECTION_RTL; // For Arabic alignment
-                        pdfTable.DefaultCell.Padding = 5;
-                        pdfTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        // Add date range
+                        var dateFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.NORMAL);
+                        var dateRange = new Paragraph($"الفترة من: {dtpFromDate.Value.ToShortDateString()} إلى: {dtpToDate.Value.ToShortDateString()}", dateFont)
+                        {
+                            Alignment = Element.ALIGN_CENTER
+                        };
+                        pdfDoc.Add(dateRange);
 
-                        // Add column headers explicitly
+                        pdfDoc.Add(new Paragraph("\n")); // Add spacing
+
+                        // Create a table
+                        PdfPTable pdfTable = new PdfPTable(dgvReport.Columns.Count)
+                        {
+                            WidthPercentage = 100,
+                            RunDirection = PdfWriter.RUN_DIRECTION_RTL // For Arabic alignment
+                        };
+
+                        // Set column widths
+                        pdfTable.SetWidths(new float[] { 2f, 2f, 2f, 2f, 2f }); // Adjust column widths as needed
+
+                        // Add headers
+                        var headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
                         foreach (DataGridViewColumn column in dgvReport.Columns)
                         {
-                            // Fetch HeaderText explicitly
-                            string headerText = !string.IsNullOrEmpty(column.HeaderText) ? column.HeaderText : "N/A";
-
-                            PdfPCell cell = new PdfPCell(new Phrase(headerText, new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)))
+                            PdfPCell headerCell = new PdfPCell(new Phrase(column.HeaderText, headerFont))
                             {
                                 BackgroundColor = BaseColor.LIGHT_GRAY,
-                                HorizontalAlignment = Element.ALIGN_CENTER
+                                HorizontalAlignment = Element.ALIGN_CENTER,
+                                Padding = 5
                             };
-
-                            pdfTable.AddCell(cell);
+                            pdfTable.AddCell(headerCell);
                         }
 
-                        // Add rows to the table
+                        // Add rows
+                        var cellFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
+                        decimal overallTotal = 0;
                         foreach (DataGridViewRow row in dgvReport.Rows)
                         {
                             foreach (DataGridViewCell cell in row.Cells)
                             {
-                                pdfTable.AddCell(cell.Value?.ToString() ?? string.Empty);
+                                string value = cell.Value?.ToString() ?? string.Empty;
+
+                                PdfPCell dataCell = new PdfPCell(new Phrase(value, cellFont))
+                                {
+                                    HorizontalAlignment = Element.ALIGN_RIGHT, // Right-align for Arabic
+                                    Padding = 5
+                                };
+                                pdfTable.AddCell(dataCell);
+
+                                // Calculate overall total for the "الإجمالي اليومي" column
+                                if (dgvReport.Columns[cell.ColumnIndex].HeaderText == "الإجمالي اليومي" && decimal.TryParse(value, out decimal numericValue))
+                                {
+                                    overallTotal += numericValue;
+                                }
                             }
                         }
 
-                        // Add the table to the document
-                        pdfDoc.Add(pdfTable);
-
-                        // Add overall total to the document
-                        pdfDoc.Add(new Paragraph("\n")); // Line break
-                        string overallTotalText = lblOverallTotal.Text;
-                        Paragraph overallTotalParagraph = new Paragraph(overallTotalText, new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD))
+                        // Add overall total row
+                        PdfPCell totalLabelCell = new PdfPCell(new Phrase("الإجمالي الكلي:", headerFont))
                         {
-                            Alignment = Element.ALIGN_RIGHT
+                            Colspan = dgvReport.Columns.Count - 1, // Span across all columns except the last
+                            HorizontalAlignment = Element.ALIGN_CENTER,
+                            Padding = 5
                         };
-                        pdfDoc.Add(overallTotalParagraph);
+                        pdfTable.AddCell(totalLabelCell);
+
+                        PdfPCell totalValueCell = new PdfPCell(new Phrase(overallTotal.ToString("N2"), headerFont))
+                        {
+                            HorizontalAlignment = Element.ALIGN_RIGHT,
+                            Padding = 5
+                        };
+                        pdfTable.AddCell(totalValueCell);
+
+                        pdfDoc.Add(pdfTable);
 
                         pdfDoc.Close();
                         stream.Close();
                     }
 
-                    MessageBox.Show("تم تصدير التقرير بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    lblMessage.Text = "تم تصدير التقرير بنجاح";
+                    lblMessage.ForeColor = Color.Green;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"خطأ أثناء التصدير إلى PDF: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lblMessage.Text = $"خطأ أثناء التصدير إلى PDF: {ex.Message}";
+                    lblMessage.ForeColor = Color.Red;
                 }
             }
         }
+
 
 
 
