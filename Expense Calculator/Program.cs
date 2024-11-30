@@ -16,8 +16,9 @@ namespace Expense_Calculator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            //Application.Run(new MainForm());
             //Application.Run(new DatabaseSetupForm());
+            Application.Run(new Reports.ReportForm());
         }
     }
 }

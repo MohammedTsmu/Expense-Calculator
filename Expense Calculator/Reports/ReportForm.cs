@@ -269,6 +269,75 @@ namespace Expense_Calculator.Reports
 
 
 
+        //private void btnExportExcel_Click(object sender, EventArgs e)
+        //{
+        //    if (dgvReport.Rows.Count == 0)
+        //    {
+        //        MessageBox.Show("لا توجد بيانات للتصدير", "تحذير", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return;
+        //    }
+
+        //    SaveFileDialog saveFileDialog = new SaveFileDialog
+        //    {
+        //        Filter = "Excel Files (*.xlsx)|*.xlsx",
+        //        Title = "حفظ التقرير كملف Excel"
+        //    };
+
+        //    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        //    {
+        //        try
+        //        {
+        //            using (var workbook = new ClosedXML.Excel.XLWorkbook())
+        //            {
+        //                var worksheet = workbook.Worksheets.Add("تقرير المصروفات");
+        //                // Add company name
+        //                var companyCell = worksheet.Cell(1, 1);
+        //                companyCell.Value = "اسم الشركة";
+        //                worksheet.Range(1, 1, 1, dgvReport.Columns.Count).Merge();
+        //                companyCell.Style.Font.Bold = true;
+        //                companyCell.Style.Font.FontSize = 18;
+        //                companyCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+        //                // Add headers
+        //                for (int i = 0; i < dgvReport.Columns.Count; i++)
+        //                {
+        //                    var headerCell = worksheet.Cell(2, i + 1);
+        //                    headerCell.Value = dgvReport.Columns[i].HeaderText;
+        //                    headerCell.Style.Font.Bold = true;
+        //                    headerCell.Style.Font.FontSize = 14;
+        //                    headerCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+        //                    headerCell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+        //                    headerCell.Style.Fill.BackgroundColor = XLColor.LightGray;
+        //                }
+
+        //                // Add rows
+        //                for (int i = 0; i < dgvReport.Rows.Count; i++)
+        //                {
+        //                    for (int j = 0; j < dgvReport.Columns.Count; j++)
+        //                    {
+        //                        var cell = worksheet.Cell(i + 3, j + 1);
+        //                        cell.Value = dgvReport.Rows[i].Cells[j].Value?.ToString() ?? string.Empty;
+        //                        cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+        //                        cell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+        //                    }
+        //                }
+
+        //                // Adjust column widths
+        //                worksheet.Columns().AdjustToContents();
+
+        //                // Save the file
+        //                workbook.SaveAs(saveFileDialog.FileName);
+        //            }
+
+        //            //MessageBox.Show("تم تصدير التقرير بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            lblMessages.Text = "تم تصدير التقرير بنجاح";
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show($"خطأ أثناء التصدير إلى Excel: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //    }
+        //}
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
             if (dgvReport.Rows.Count == 0)
@@ -290,6 +359,9 @@ namespace Expense_Calculator.Reports
                     using (var workbook = new ClosedXML.Excel.XLWorkbook())
                     {
                         var worksheet = workbook.Worksheets.Add("تقرير المصروفات");
+
+                        // Set right-to-left direction
+                        worksheet.RightToLeft = true;
 
                         // Add company name
                         var companyCell = worksheet.Cell(1, 1);
@@ -338,6 +410,7 @@ namespace Expense_Calculator.Reports
                 }
             }
         }
+
 
     }
 }
