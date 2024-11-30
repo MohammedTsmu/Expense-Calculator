@@ -469,6 +469,11 @@ namespace Expense_Calculator.Reports
             e.Graphics.DrawString(dateRange, contentFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(dateRange, contentFont).Width / 2, yPosition));
             yPosition += 40;
 
+            // Print overall total at the top
+            string overallTotalText = lblOverallTotal.Text;
+            e.Graphics.DrawString(overallTotalText, headerFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(overallTotalText, headerFont).Width / 2, yPosition));
+            yPosition += 40;
+
             // Draw table headers
             int columnWidth = (pageWidth - 2 * margin) / columns.Count;
             int headerHeight = 30;
@@ -495,6 +500,14 @@ namespace Expense_Calculator.Reports
             while (currentRowIndex < dgvReport.Rows.Count)
             {
                 DataGridViewRow row = dgvReport.Rows[currentRowIndex];
+
+                // Skip the default "new row"
+                if (row.IsNewRow)
+                {
+                    currentRowIndex++;
+                    continue;
+                }
+
                 if (yPosition + 20 > pageHeight - margin)
                 {
                     e.HasMorePages = true; // Add another page if content doesn't fit
@@ -541,16 +554,11 @@ namespace Expense_Calculator.Reports
                 currentRowIndex++; // Increment row index
             }
 
-            // Print overall total if it's the last page
+            // Reset currentRowIndex for subsequent print actions
             if (currentRowIndex >= dgvReport.Rows.Count)
             {
-                yPosition += 20;
-                string overallTotalText = lblOverallTotal.Text;
-                e.Graphics.DrawString(overallTotalText, headerFont, brush, new PointF(pageWidth - margin - e.Graphics.MeasureString(overallTotalText, headerFont).Width, yPosition));
-
-                // Reset currentRowIndex for the next print job
                 currentRowIndex = 0;
-                e.HasMorePages = false;
+                e.HasMorePages = false; // No more pages to print
             }
         }
 
