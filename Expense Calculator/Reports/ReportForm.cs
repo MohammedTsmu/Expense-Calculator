@@ -342,7 +342,8 @@ namespace Expense_Calculator.Reports
         {
             if (dgvReport.Rows.Count == 0)
             {
-                MessageBox.Show("لا توجد بيانات للتصدير", "تحذير", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                lblMessage.Text = "لا توجد بيانات للتصدير"; // Update label instead of showing a MessageBox
+                lblMessage.ForeColor = Color.Red; // Set color for error message
                 return;
             }
 
@@ -402,11 +403,13 @@ namespace Expense_Calculator.Reports
                         workbook.SaveAs(saveFileDialog.FileName);
                     }
 
-                    MessageBox.Show("تم تصدير التقرير بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    lblMessage.Text = "تم تصدير التقرير بنجاح"; // Update label for success message
+                    lblMessage.ForeColor = Color.Green; // Set color for success message
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"خطأ أثناء التصدير إلى Excel: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lblMessage.Text = $"خطأ أثناء التصدير إلى Excel: {ex.Message}"; // Update label for error message
+                    lblMessage.ForeColor = Color.Red; // Set color for error message
                 }
             }
         }

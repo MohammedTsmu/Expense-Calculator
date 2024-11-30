@@ -40,9 +40,10 @@
             this.lblFromDate = new System.Windows.Forms.Label();
             this.dgvReport = new System.Windows.Forms.DataGridView();
             this.pnFill = new System.Windows.Forms.Panel();
+            this.lblOverallTotal = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblMessages = new System.Windows.Forms.Label();
-            this.lblOverallTotal = new System.Windows.Forms.Label();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.pnMainForm.SuspendLayout();
             this.pnTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).BeginInit();
@@ -165,6 +166,7 @@
             // pnFill
             // 
             this.pnFill.BackColor = System.Drawing.SystemColors.ControlText;
+            this.pnFill.Controls.Add(this.lblMessage);
             this.pnFill.Controls.Add(this.lblOverallTotal);
             this.pnFill.Controls.Add(this.panel1);
             this.pnFill.Controls.Add(this.dgvReport);
@@ -173,6 +175,17 @@
             this.pnFill.Name = "pnFill";
             this.pnFill.Size = new System.Drawing.Size(929, 489);
             this.pnFill.TabIndex = 15;
+            // 
+            // lblOverallTotal
+            // 
+            this.lblOverallTotal.AutoSize = true;
+            this.lblOverallTotal.ForeColor = System.Drawing.Color.Cornsilk;
+            this.lblOverallTotal.Location = new System.Drawing.Point(141, 352);
+            this.lblOverallTotal.Name = "lblOverallTotal";
+            this.lblOverallTotal.Size = new System.Drawing.Size(79, 26);
+            this.lblOverallTotal.TabIndex = 14;
+            this.lblOverallTotal.Text = "من تاريخ";
+            this.lblOverallTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
@@ -194,16 +207,16 @@
             this.lblMessages.TabIndex = 14;
             this.lblMessages.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblOverallTotal
+            // lblMessage
             // 
-            this.lblOverallTotal.AutoSize = true;
-            this.lblOverallTotal.ForeColor = System.Drawing.Color.Cornsilk;
-            this.lblOverallTotal.Location = new System.Drawing.Point(141, 352);
-            this.lblOverallTotal.Name = "lblOverallTotal";
-            this.lblOverallTotal.Size = new System.Drawing.Size(79, 26);
-            this.lblOverallTotal.TabIndex = 14;
-            this.lblOverallTotal.Text = "من تاريخ";
-            this.lblOverallTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMessage.AutoSize = true;
+            this.lblMessage.ForeColor = System.Drawing.Color.Cornsilk;
+            this.lblMessage.Location = new System.Drawing.Point(281, 352);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(79, 26);
+            this.lblMessage.TabIndex = 14;
+            this.lblMessage.Text = "من تاريخ";
+            this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReportForm
             // 
@@ -247,5 +260,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblMessages;
         private System.Windows.Forms.Label lblOverallTotal;
+        private System.Windows.Forms.Label lblMessage;
     }
 }
