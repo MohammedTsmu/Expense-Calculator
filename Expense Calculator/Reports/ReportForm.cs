@@ -22,6 +22,7 @@ namespace Expense_Calculator.Reports
         public ReportForm()
         {
             InitializeComponent();
+            InitializePrintDocument();
         }
 
         private void btnMainForm_Click(object sender, EventArgs e)
@@ -397,37 +398,85 @@ namespace Expense_Calculator.Reports
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            //// Check if the DataGridView has rows
-            //if (dgvReport.Rows.Count == 0)
-            //{
-            //    lblMessage.Text = "لا توجد بيانات للطباعة"; // Show a message in the label
-            //    lblMessage.ForeColor = Color.White;
-            //    lblMessage.BackColor = Color.DarkRed;
-            //    return;
-            //}
-
             if (dgvReport.Rows.Count == 0)
             {
                 DisplayMessage("لا توجد بيانات للطباعة", Color.White, Color.DarkRed);
                 return;
             }
 
-            //// Show the print preview dialog
-            //printPreviewDialog1.Document = printDocument1;
-            //printPreviewDialog1.ShowDialog();
-
             try
             {
-                currentRowIndex = 0; // Reset for new print job
-                printPreviewDialog1.Document = printDocument1;
-                printPreviewDialog1.ShowDialog();
-                DisplayMessage("تم عرض معاينة الطباعة بنجاح", Color.White, Color.Green);
+                // Check if a default printer is saved in settings
+                string defaultPrinter = Properties.Settings.Default.DefaultPrinter;
+                if (!string.IsNullOrEmpty(defaultPrinter))
+                {
+                    // Use the saved default printer
+                    printDocument1.PrinterSettings.PrinterName = defaultPrinter;
+                }
+
+                // Show the PrintDialog to allow the user to select a printer
+                PrintDialog printDialog = new PrintDialog
+                {
+                    Document = printDocument1,
+                    AllowCurrentPage = true,
+                    AllowSomePages = true
+                };
+
+                if (printDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Save the selected printer as the default printer
+                    Properties.Settings.Default.DefaultPrinter = printDocument1.PrinterSettings.PrinterName;
+                    Properties.Settings.Default.Save();
+
+                    // Reset for new print job
+                    currentRowIndex = 0;
+                    printPreviewDialog1.Document = printDocument1;
+                    printPreviewDialog1.ShowDialog();
+
+                    DisplayMessage("تم عرض معاينة الطباعة بنجاح", Color.White, Color.Green);
+                }
+                else
+                {
+                    DisplayMessage("تم إلغاء الطباعة", Color.White, Color.Orange);
+                }
             }
             catch (Exception ex)
             {
                 DisplayMessage($"خطأ أثناء الطباعة: {ex.Message}", Color.White, Color.DarkRed);
             }
         }
+
+
+        private void btnSetDefaultPrinter_Click(object sender, EventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Save the selected printer as the default printer
+                Properties.Settings.Default.DefaultPrinter = printDialog.PrinterSettings.PrinterName;
+                Properties.Settings.Default.Save();
+
+                lblMessage.Text = $"تم تعيين الطابعة الافتراضية: {printDialog.PrinterSettings.PrinterName}";
+                lblMessage.ForeColor = Color.Green;
+            }
+            else
+            {
+                lblMessage.Text = "تم إلغاء تحديد الطابعة الافتراضية";
+                lblMessage.ForeColor = Color.Orange;
+            }
+        }
+
+        private void InitializePrintDocument()
+        {
+            string defaultPrinter = Properties.Settings.Default.DefaultPrinter;
+
+            if (!string.IsNullOrEmpty(defaultPrinter))
+            {
+                printDocument1.PrinterSettings.PrinterName = defaultPrinter;
+            }
+        }
+
 
 
         //private int currentRowIndex = 0; // Add this as a class-level variable to track progress.

@@ -46,5 +46,17 @@ namespace Expense_Calculator.Properties {
                 this["DatabaseName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DefaultPrinter {
+            get {
+                return ((string)(this["DefaultPrinter"]));
+            }
+            set {
+                this["DefaultPrinter"] = value;
+            }
+        }
     }
 }
