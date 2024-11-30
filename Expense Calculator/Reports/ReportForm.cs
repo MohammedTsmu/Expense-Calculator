@@ -430,6 +430,8 @@ namespace Expense_Calculator.Reports
         }
 
 
+        //private int currentRowIndex = 0; // Add this as a class-level variable to track progress.
+
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             // Fonts and brushes
@@ -490,8 +492,9 @@ namespace Expense_Calculator.Reports
             yPosition += headerHeight;
 
             // Draw table rows
-            foreach (DataGridViewRow row in dgvReport.Rows)
+            while (currentRowIndex < dgvReport.Rows.Count)
             {
+                DataGridViewRow row = dgvReport.Rows[currentRowIndex];
                 if (yPosition + 20 > pageHeight - margin)
                 {
                     e.HasMorePages = true; // Add another page if content doesn't fit
@@ -535,16 +538,22 @@ namespace Expense_Calculator.Reports
                 }
 
                 yPosition += rowHeight; // Move to the next row
+                currentRowIndex++; // Increment row index
             }
 
-            // Print overall total
-            yPosition += 20;
-            if (yPosition + 20 <= pageHeight - margin)
+            // Print overall total if it's the last page
+            if (currentRowIndex >= dgvReport.Rows.Count)
             {
+                yPosition += 20;
                 string overallTotalText = lblOverallTotal.Text;
                 e.Graphics.DrawString(overallTotalText, headerFont, brush, new PointF(pageWidth - margin - e.Graphics.MeasureString(overallTotalText, headerFont).Width, yPosition));
+
+                // Reset currentRowIndex for the next print job
+                currentRowIndex = 0;
+                e.HasMorePages = false;
             }
         }
+
 
         private async void DisplayMessage(string message, Color textColor, Color backgroundColor, int duration = 3000)
         {
