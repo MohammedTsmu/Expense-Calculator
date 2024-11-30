@@ -211,7 +211,7 @@
             // 
             this.lblMessage.AutoSize = true;
             this.lblMessage.ForeColor = System.Drawing.Color.Cornsilk;
-            this.lblMessage.Location = new System.Drawing.Point(281, 352);
+            this.lblMessage.Location = new System.Drawing.Point(141, 393);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(79, 26);
             this.lblMessage.TabIndex = 14;

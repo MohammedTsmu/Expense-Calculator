@@ -338,12 +338,89 @@ namespace Expense_Calculator.Reports
         //        }
         //    }
         //}
+
+        //private void btnExportExcel_Click(object sender, EventArgs e)
+        //{
+        //    if (dgvReport.Rows.Count == 0)
+        //    {
+        //        lblMessage.Text = "لا توجد بيانات للتصدير"; // Update label instead of showing a MessageBox
+        //        lblMessage.ForeColor = Color.Red; // Set color for error message
+        //        return;
+        //    }
+
+        //    SaveFileDialog saveFileDialog = new SaveFileDialog
+        //    {
+        //        Filter = "Excel Files (*.xlsx)|*.xlsx",
+        //        Title = "حفظ التقرير كملف Excel"
+        //    };
+
+        //    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        //    {
+        //        try
+        //        {
+        //            using (var workbook = new ClosedXML.Excel.XLWorkbook())
+        //            {
+        //                var worksheet = workbook.Worksheets.Add("تقرير المصروفات");
+
+        //                // Set right-to-left direction
+        //                worksheet.RightToLeft = true;
+
+        //                // Add company name
+        //                var companyCell = worksheet.Cell(1, 1);
+        //                companyCell.Value = "اسم الشركة";
+        //                worksheet.Range(1, 1, 1, dgvReport.Columns.Count).Merge();
+        //                companyCell.Style.Font.Bold = true;
+        //                companyCell.Style.Font.FontSize = 14;
+        //                companyCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+        //                // Add headers
+        //                for (int i = 0; i < dgvReport.Columns.Count; i++)
+        //                {
+        //                    var headerCell = worksheet.Cell(2, i + 1);
+        //                    headerCell.Value = dgvReport.Columns[i].HeaderText;
+        //                    headerCell.Style.Font.Bold = true;
+        //                    headerCell.Style.Font.FontSize = 12;
+        //                    headerCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+        //                    headerCell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+        //                    headerCell.Style.Fill.BackgroundColor = XLColor.LightGray;
+        //                }
+
+        //                // Add rows
+        //                for (int i = 0; i < dgvReport.Rows.Count; i++)
+        //                {
+        //                    for (int j = 0; j < dgvReport.Columns.Count; j++)
+        //                    {
+        //                        var cell = worksheet.Cell(i + 3, j + 1);
+        //                        cell.Value = dgvReport.Rows[i].Cells[j].Value?.ToString() ?? string.Empty;
+        //                        cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+        //                        cell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+        //                    }
+        //                }
+
+        //                // Adjust column widths
+        //                worksheet.Columns().AdjustToContents();
+
+        //                // Save the file
+        //                workbook.SaveAs(saveFileDialog.FileName);
+        //            }
+
+        //            lblMessage.Text = "تم تصدير التقرير بنجاح"; // Update label for success message
+        //            lblMessage.ForeColor = Color.Green; // Set color for success message
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            lblMessage.Text = $"خطأ أثناء التصدير إلى Excel: {ex.Message}"; // Update label for error message
+        //            lblMessage.ForeColor = Color.Red; // Set color for error message
+        //        }
+        //    }
+        //}
+
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
             if (dgvReport.Rows.Count == 0)
             {
-                lblMessage.Text = "لا توجد بيانات للتصدير"; // Update label instead of showing a MessageBox
-                lblMessage.ForeColor = Color.Red; // Set color for error message
+                lblMessage.Text = "لا توجد بيانات للتصدير";
+                lblMessage.ForeColor = Color.Red;
                 return;
             }
 
@@ -385,16 +462,38 @@ namespace Expense_Calculator.Reports
                         }
 
                         // Add rows
+                        decimal overallTotal = 0; // To calculate total expenses
                         for (int i = 0; i < dgvReport.Rows.Count; i++)
                         {
+                            decimal dailyTotal = 0;
                             for (int j = 0; j < dgvReport.Columns.Count; j++)
                             {
                                 var cell = worksheet.Cell(i + 3, j + 1);
-                                cell.Value = dgvReport.Rows[i].Cells[j].Value?.ToString() ?? string.Empty;
+                                var value = dgvReport.Rows[i].Cells[j].Value?.ToString() ?? string.Empty;
+
+                                cell.Value = value;
                                 cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
                                 cell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+
+                                // Calculate daily total if this is the "الإجمالي اليومي" column
+                                if (dgvReport.Columns[j].HeaderText == "الإجمالي اليومي" && decimal.TryParse(value, out dailyTotal))
+                                {
+                                    overallTotal += dailyTotal;
+                                }
                             }
                         }
+
+                        // Add overall total row
+                        var totalRow = worksheet.Cell(dgvReport.Rows.Count + 3, 1);
+                        totalRow.Value = "الإجمالي الكلي:";
+                        worksheet.Range(dgvReport.Rows.Count + 3, 1, dgvReport.Rows.Count + 3, dgvReport.Columns.Count - 1).Merge();
+                        totalRow.Style.Font.Bold = true;
+                        totalRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                        var totalCell = worksheet.Cell(dgvReport.Rows.Count + 3, dgvReport.Columns.Count);
+                        totalCell.Value = overallTotal;
+                        totalCell.Style.Font.Bold = true;
+                        totalCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
 
                         // Adjust column widths
                         worksheet.Columns().AdjustToContents();
@@ -403,16 +502,17 @@ namespace Expense_Calculator.Reports
                         workbook.SaveAs(saveFileDialog.FileName);
                     }
 
-                    lblMessage.Text = "تم تصدير التقرير بنجاح"; // Update label for success message
-                    lblMessage.ForeColor = Color.Green; // Set color for success message
+                    lblMessage.Text = "تم تصدير التقرير بنجاح";
+                    lblMessage.ForeColor = Color.Green;
                 }
                 catch (Exception ex)
                 {
-                    lblMessage.Text = $"خطأ أثناء التصدير إلى Excel: {ex.Message}"; // Update label for error message
-                    lblMessage.ForeColor = Color.Red; // Set color for error message
+                    lblMessage.Text = $"خطأ أثناء التصدير إلى Excel: {ex.Message}";
+                    lblMessage.ForeColor = Color.Red;
                 }
             }
         }
+
 
 
     }
