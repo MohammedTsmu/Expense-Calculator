@@ -203,7 +203,7 @@
             // 
             // lblMessage
             // 
-            this.lblMessage.BackColor = System.Drawing.SystemColors.GrayText;
+            this.lblMessage.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.lblMessage.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblMessage.Font = new System.Drawing.Font("LBC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMessage.ForeColor = System.Drawing.Color.Cornsilk;

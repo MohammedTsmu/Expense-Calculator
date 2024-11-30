@@ -366,118 +366,28 @@ namespace Expense_Calculator.Reports
             }
         }
 
+        //private void btnPrint_Click(object sender, EventArgs e)
+        //{
+        //    printPreviewDialog1.Document = printDocument1;
+        //    printPreviewDialog1.ShowDialog();
+        //}
+
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            // Check if the DataGridView has rows
+            if (dgvReport.Rows.Count == 0)
+            {
+                lblMessage.Text = "لا توجد بيانات للطباعة"; // Show a message in the label
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+
+            // Show the print preview dialog
             printPreviewDialog1.Document = printDocument1;
             printPreviewDialog1.ShowDialog();
         }
 
-        //private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        //{
-        //    // Fonts and brushes
-        //    System.Drawing.Font titleFont = new System.Drawing.Font("Arial", 16, System.Drawing.FontStyle.Bold);
-        //    System.Drawing.Font headerFont = new System.Drawing.Font("Arial", 12, System.Drawing.FontStyle.Bold);
-        //    System.Drawing.Font contentFont = new System.Drawing.Font("Arial", 10);
-        //    Brush brush = Brushes.Black;
-        //    Pen blackPen = new Pen(Color.Black, 1);
 
-        //    int margin = 50; // Margins
-        //    int pageWidth = e.PageBounds.Width;
-        //    int pageHeight = e.PageBounds.Height;
-        //    int yPosition = margin; // Starting y position
-
-        //    // Reverse column order for RTL
-        //    var columns = dgvReport.Columns.Cast<DataGridViewColumn>().OrderByDescending(c =>
-        //    {
-        //        if (c.HeaderText == "التاريخ") return int.MaxValue; // Keep datetime as the rightmost column
-        //        if (c.HeaderText == "الإجمالي اليومي") return 0; // Move total to the leftmost
-        //        return 1;
-        //    }).ToList();
-
-        //    // Print company name
-        //    string companyName = "اسم الشركة";
-        //    e.Graphics.DrawString(companyName, titleFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(companyName, titleFont).Width / 2, yPosition));
-        //    yPosition += 40;
-
-        //    // Print report title
-        //    string reportTitle = "تقرير المصروفات";
-        //    e.Graphics.DrawString(reportTitle, titleFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(reportTitle, titleFont).Width / 2, yPosition));
-        //    yPosition += 40;
-
-        //    // Print date range
-        //    string dateRange = $"الفترة من: {dtpFromDate.Value.ToShortDateString()} إلى: {dtpToDate.Value.ToShortDateString()}";
-        //    e.Graphics.DrawString(dateRange, contentFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(dateRange, contentFont).Width / 2, yPosition));
-        //    yPosition += 40;
-
-        //    // Draw table headers
-        //    int columnWidth = (pageWidth - 2 * margin) / columns.Count;
-        //    int headerHeight = 30;
-
-        //    // Header background
-        //    e.Graphics.FillRectangle(Brushes.LightGray, margin, yPosition, pageWidth - 2 * margin, headerHeight);
-
-        //    foreach (var column in columns)
-        //    {
-        //        string headerText = column.HeaderText;
-        //        int columnIndex = columns.IndexOf(column);
-        //        int xPosition = pageWidth - margin - (columnIndex + 1) * columnWidth; // Adjust for RTL
-
-        //        e.Graphics.DrawRectangle(blackPen, xPosition, yPosition, columnWidth, headerHeight);
-        //        e.Graphics.DrawString(headerText, headerFont, brush, new RectangleF(xPosition, yPosition, columnWidth, headerHeight), new StringFormat
-        //        {
-        //            Alignment = StringAlignment.Center,
-        //            LineAlignment = StringAlignment.Center
-        //        });
-        //    }
-        //    yPosition += headerHeight;
-
-        //    // Draw table rows
-        //    foreach (DataGridViewRow row in dgvReport.Rows)
-        //    {
-        //        if (yPosition + 20 > pageHeight - margin)
-        //        {
-        //            e.HasMorePages = true; // Add another page if content doesn't fit
-        //            return;
-        //        }
-
-        //        int rowHeight = 20; // Default row height
-        //        List<int> cellHeights = new List<int>(); // Keep track of cell heights for dynamic adjustment
-
-        //        foreach (var column in columns)
-        //        {
-        //            string cellValue = row.Cells[column.Index].Value?.ToString() ?? string.Empty;
-        //            int columnIndex = columns.IndexOf(column);
-        //            int xPosition = pageWidth - margin - (columnIndex + 1) * columnWidth; // Adjust for RTL
-
-        //            // Measure text height for dynamic cell adjustment
-        //            SizeF textSize = e.Graphics.MeasureString(cellValue, contentFont, columnWidth);
-        //            int dynamicHeight = (int)textSize.Height + 10; // Add padding
-        //            cellHeights.Add(dynamicHeight);
-
-        //            // Draw cell border
-        //            e.Graphics.DrawRectangle(blackPen, xPosition, yPosition, columnWidth, dynamicHeight);
-
-        //            // Draw cell content
-        //            e.Graphics.DrawString(cellValue, contentFont, brush, new RectangleF(xPosition, yPosition, columnWidth, dynamicHeight), new StringFormat
-        //            {
-        //                Alignment = StringAlignment.Center,
-        //                LineAlignment = StringAlignment.Center
-        //            });
-        //        }
-
-        //        // Adjust row height based on the tallest cell
-        //        rowHeight = cellHeights.Max();
-        //        yPosition += rowHeight;
-        //    }
-
-        //    // Print overall total
-        //    yPosition += 20;
-        //    if (yPosition + 20 <= pageHeight - margin)
-        //    {
-        //        string overallTotalText = lblOverallTotal.Text;
-        //        e.Graphics.DrawString(overallTotalText, headerFont, brush, new PointF(pageWidth - margin - e.Graphics.MeasureString(overallTotalText, headerFont).Width, yPosition));
-        //    }
-        //}
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             // Fonts and brushes
