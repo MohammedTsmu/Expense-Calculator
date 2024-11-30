@@ -10,6 +10,7 @@ using iTextSharp.text.pdf;
 using System.IO;
 using ClosedXML.Excel;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Expense_Calculator.Reports
 {
@@ -100,10 +101,13 @@ namespace Expense_Calculator.Reports
                         }
                     }
                 }
+                DisplayMessage("تم تصفية البيانات بنجاح", Color.White, Color.Green);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"خطأ أثناء تحميل البيانات: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show($"خطأ أثناء تحميل البيانات: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                DisplayMessage($"خطأ أثناء تحميل البيانات: {ex.Message}", Color.White, Color.DarkRed);
             }
         }
 
@@ -112,9 +116,7 @@ namespace Expense_Calculator.Reports
         {
             if (dgvReport.Rows.Count == 0)
             {
-                lblMessage.Text = "لا توجد بيانات للتصدير";
-                lblMessage.ForeColor = Color.White;
-                lblMessage.BackColor = Color.DarkRed;
+                DisplayMessage("لا توجد بيانات للتصدير", Color.White, Color.DarkRed);
                 return;
             }
 
@@ -228,15 +230,19 @@ namespace Expense_Calculator.Reports
                         stream.Close();
                     }
 
-                    lblMessage.Text = "تم تصدير التقرير بنجاح";
-                    lblMessage.ForeColor = Color.White;
-                    lblMessage.BackColor = Color.Green;
+                    //lblMessage.Text = "تم تصدير التقرير بنجاح";
+                    //lblMessage.ForeColor = Color.White;
+                    //lblMessage.BackColor = Color.Green;
+
+                    DisplayMessage("تم تصدير التقرير بنجاح", Color.White, Color.Green);
+
                 }
                 catch (Exception ex)
                 {
-                    lblMessage.Text = $"خطأ أثناء التصدير إلى PDF: {ex.Message}";
-                    lblMessage.ForeColor = Color.White;
-                    lblMessage.BackColor = Color.DarkRed;
+                    //lblMessage.Text = $"خطأ أثناء التصدير إلى PDF: {ex.Message}";
+                    //lblMessage.ForeColor = Color.White;
+                    //lblMessage.BackColor = Color.DarkRed;
+                    DisplayMessage($"خطأ أثناء التصدير إلى PDF: {ex.Message}", Color.White, Color.DarkRed);
                 }
             }
         }
@@ -244,11 +250,11 @@ namespace Expense_Calculator.Reports
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
+           
+
             if (dgvReport.Rows.Count == 0)
             {
-                lblMessage.Text = "لا توجد بيانات للتصدير";
-                lblMessage.ForeColor = Color.White;
-                lblMessage.BackColor = Color.DarkRed;
+                DisplayMessage("لا توجد بيانات للتصدير", Color.White, Color.DarkRed);
                 return;
             }
 
@@ -359,18 +365,23 @@ namespace Expense_Calculator.Reports
                         workbook.SaveAs(saveFileDialog.FileName);
                     }
 
-                    lblMessage.Text = "تم تصدير التقرير بنجاح";
-                    lblMessage.ForeColor = Color.White;
-                    lblMessage.BackColor = Color.Green;
+                    //lblMessage.Text = "تم تصدير التقرير بنجاح";
+                    //lblMessage.ForeColor = Color.White;
+                    //lblMessage.BackColor = Color.Green;
                     //lblMessage.Text = "تم تصدير التقرير بنجاح.";
                     //lblMessage.ForeColor = Color.Green;
+
+                    DisplayMessage("تم تصدير التقرير بنجاح", Color.White, Color.Green);
+
 
                 }
                 catch (Exception ex)
                 {
-                    lblMessage.Text = $"خطأ أثناء التصدير إلى Excel: {ex.Message}";
-                    lblMessage.ForeColor = Color.White;
-                    lblMessage.BackColor = Color.DarkRed;
+                    //lblMessage.Text = $"خطأ أثناء التصدير إلى Excel: {ex.Message}";
+                    //lblMessage.ForeColor = Color.White;
+                    //lblMessage.BackColor = Color.DarkRed;
+                    DisplayMessage($"خطأ أثناء التصدير إلى Excel: {ex.Message}", Color.White, Color.DarkRed);
+
                 }
             }
         }
@@ -383,18 +394,35 @@ namespace Expense_Calculator.Reports
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            // Check if the DataGridView has rows
+            //// Check if the DataGridView has rows
+            //if (dgvReport.Rows.Count == 0)
+            //{
+            //    lblMessage.Text = "لا توجد بيانات للطباعة"; // Show a message in the label
+            //    lblMessage.ForeColor = Color.White;
+            //    lblMessage.BackColor = Color.DarkRed;
+            //    return;
+            //}
+
             if (dgvReport.Rows.Count == 0)
             {
-                lblMessage.Text = "لا توجد بيانات للطباعة"; // Show a message in the label
-                lblMessage.ForeColor = Color.White;
-                lblMessage.BackColor = Color.DarkRed;
+                DisplayMessage("لا توجد بيانات للطباعة", Color.White, Color.DarkRed);
                 return;
             }
 
-            // Show the print preview dialog
-            printPreviewDialog1.Document = printDocument1;
-            printPreviewDialog1.ShowDialog();
+            //// Show the print preview dialog
+            //printPreviewDialog1.Document = printDocument1;
+            //printPreviewDialog1.ShowDialog();
+
+            try
+            {
+                printPreviewDialog1.Document = printDocument1;
+                printPreviewDialog1.ShowDialog();
+                DisplayMessage("تم عرض معاينة الطباعة بنجاح", Color.White, Color.Green);
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage($"خطأ أثناء الطباعة: {ex.Message}", Color.White, Color.DarkRed);
+            }
         }
 
 
@@ -514,6 +542,19 @@ namespace Expense_Calculator.Reports
             }
         }
 
+        private async void DisplayMessage(string message, Color textColor, Color backgroundColor, int duration = 3000)
+        {
+            lblMessage.Text = message;
+            lblMessage.ForeColor = textColor;
+            lblMessage.BackColor = backgroundColor;
+
+            await Task.Delay(duration);
+
+            // Reset to default state
+            lblMessage.Text = string.Empty;
+            lblMessage.ForeColor = Color.Black;
+            lblMessage.BackColor = Color.Transparent;
+        }
 
     }
 }
