@@ -113,7 +113,8 @@ namespace Expense_Calculator.Reports
             if (dgvReport.Rows.Count == 0)
             {
                 lblMessage.Text = "لا توجد بيانات للتصدير";
-                lblMessage.ForeColor = Color.Red;
+                lblMessage.ForeColor = Color.White;
+                lblMessage.BackColor = Color.DarkRed;
                 return;
             }
 
@@ -228,12 +229,14 @@ namespace Expense_Calculator.Reports
                     }
 
                     lblMessage.Text = "تم تصدير التقرير بنجاح";
-                    lblMessage.ForeColor = Color.Green;
+                    lblMessage.ForeColor = Color.White;
+                    lblMessage.BackColor = Color.Green;
                 }
                 catch (Exception ex)
                 {
                     lblMessage.Text = $"خطأ أثناء التصدير إلى PDF: {ex.Message}";
-                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.ForeColor = Color.White;
+                    lblMessage.BackColor = Color.DarkRed;
                 }
             }
         }
@@ -244,7 +247,8 @@ namespace Expense_Calculator.Reports
             if (dgvReport.Rows.Count == 0)
             {
                 lblMessage.Text = "لا توجد بيانات للتصدير";
-                lblMessage.ForeColor = Color.Red;
+                lblMessage.ForeColor = Color.White;
+                lblMessage.BackColor = Color.DarkRed;
                 return;
             }
 
@@ -356,12 +360,17 @@ namespace Expense_Calculator.Reports
                     }
 
                     lblMessage.Text = "تم تصدير التقرير بنجاح";
-                    lblMessage.ForeColor = Color.Green;
+                    lblMessage.ForeColor = Color.White;
+                    lblMessage.BackColor = Color.Green;
+                    //lblMessage.Text = "تم تصدير التقرير بنجاح.";
+                    //lblMessage.ForeColor = Color.Green;
+
                 }
                 catch (Exception ex)
                 {
                     lblMessage.Text = $"خطأ أثناء التصدير إلى Excel: {ex.Message}";
-                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.ForeColor = Color.White;
+                    lblMessage.BackColor = Color.DarkRed;
                 }
             }
         }
@@ -378,7 +387,8 @@ namespace Expense_Calculator.Reports
             if (dgvReport.Rows.Count == 0)
             {
                 lblMessage.Text = "لا توجد بيانات للطباعة"; // Show a message in the label
-                lblMessage.ForeColor = Color.Red;
+                lblMessage.ForeColor = Color.White;
+                lblMessage.BackColor = Color.DarkRed;
                 return;
             }
 
