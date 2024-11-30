@@ -16,6 +16,9 @@ namespace Expense_Calculator.Reports
 {
     public partial class ReportForm : Form
     {
+        // Track the current row index globally
+        private int currentRowIndex = 0;
+
         public ReportForm()
         {
             InitializeComponent();
@@ -415,6 +418,7 @@ namespace Expense_Calculator.Reports
 
             try
             {
+                currentRowIndex = 0; // Reset for new print job
                 printPreviewDialog1.Document = printDocument1;
                 printPreviewDialog1.ShowDialog();
                 DisplayMessage("تم عرض معاينة الطباعة بنجاح", Color.White, Color.Green);
@@ -553,7 +557,7 @@ namespace Expense_Calculator.Reports
             // Reset to default state
             lblMessage.Text = string.Empty;
             lblMessage.ForeColor = Color.Black;
-            lblMessage.BackColor = Color.Transparent;
+            lblMessage.BackColor = Color.Gray;
         }
 
     }
