@@ -42,6 +42,7 @@
             this.pnFill = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblMessages = new System.Windows.Forms.Label();
+            this.lblOverallTotal = new System.Windows.Forms.Label();
             this.pnMainForm.SuspendLayout();
             this.pnTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).BeginInit();
@@ -164,6 +165,7 @@
             // pnFill
             // 
             this.pnFill.BackColor = System.Drawing.SystemColors.ControlText;
+            this.pnFill.Controls.Add(this.lblOverallTotal);
             this.pnFill.Controls.Add(this.panel1);
             this.pnFill.Controls.Add(this.dgvReport);
             this.pnFill.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -192,6 +194,17 @@
             this.lblMessages.TabIndex = 14;
             this.lblMessages.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblOverallTotal
+            // 
+            this.lblOverallTotal.AutoSize = true;
+            this.lblOverallTotal.ForeColor = System.Drawing.Color.Cornsilk;
+            this.lblOverallTotal.Location = new System.Drawing.Point(141, 352);
+            this.lblOverallTotal.Name = "lblOverallTotal";
+            this.lblOverallTotal.Size = new System.Drawing.Size(79, 26);
+            this.lblOverallTotal.TabIndex = 14;
+            this.lblOverallTotal.Text = "من تاريخ";
+            this.lblOverallTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 26F);
@@ -211,6 +224,7 @@
             this.pnTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).EndInit();
             this.pnFill.ResumeLayout(false);
+            this.pnFill.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -232,5 +246,6 @@
         private System.Windows.Forms.Panel pnFill;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblMessages;
+        private System.Windows.Forms.Label lblOverallTotal;
     }
 }
