@@ -9,6 +9,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
 using ClosedXML.Excel;
+using System.Collections.Generic;
 
 namespace Expense_Calculator.Reports
 {
@@ -27,76 +28,6 @@ namespace Expense_Calculator.Reports
 
             // this.Close();
         }
-
-        //private void btnFilter_Click(object sender, EventArgs e)
-        //{
-        //    string connectionString = AppConfig.GetConnectionString();
-        //    DateTime fromDate = dtpFromDate.Value.Date;
-        //    DateTime toDate = dtpToDate.Value.Date;
-
-        //    string query = @"
-        //    SELECT ExpenseDate AS [التاريخ], 
-        //           MaintenanceExpenditure AS [مصاريف الصيانة], 
-        //           RestaurantExpenditure AS [مصاريف المطاعم], 
-        //           PurchasesExpenditure AS [مصاريف المشتريات] 
-        //    FROM Expenses
-        //    WHERE ExpenseDate >= @FromDate AND ExpenseDate < DATEADD(DAY, 1, @ToDate)
-        //    ORDER BY ExpenseDate";
-
-        //    try
-        //    {
-        //        using (SqlConnection connection = new SqlConnection(connectionString))
-        //        {
-        //            connection.Open();
-        //            using (SqlCommand command = new SqlCommand(query, connection))
-        //            {
-        //                command.Parameters.AddWithValue("@FromDate", fromDate);
-        //                command.Parameters.AddWithValue("@ToDate", toDate);
-
-        //                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-        //                {
-        //                    DataTable dataTable = new DataTable();
-        //                    adapter.Fill(dataTable);
-
-        //                    // Add a daily total column if it doesn't exist
-        //                    if (!dataTable.Columns.Contains("الإجمالي اليومي"))
-        //                    {
-        //                        dataTable.Columns.Add("الإجمالي اليومي", typeof(decimal));
-        //                    }
-
-        //                    // Calculate daily totals
-        //                    decimal overallTotal = 0;
-        //                    foreach (DataRow row in dataTable.Rows)
-        //                    {
-        //                        decimal maintenance = Convert.ToDecimal(row["مصاريف الصيانة"]);
-        //                        decimal restaurant = Convert.ToDecimal(row["مصاريف المطاعم"]);
-        //                        decimal purchases = Convert.ToDecimal(row["مصاريف المشتريات"]);
-        //                        decimal dailyTotal = maintenance + restaurant + purchases;
-        //                        row["الإجمالي اليومي"] = dailyTotal;
-        //                        overallTotal += dailyTotal;
-        //                    }
-
-        //                    // Bind the data to the DataGridView
-        //                    dgvReport.DataSource = dataTable;
-
-        //                    // Ensure headers are set
-        //                    dgvReport.Columns["التاريخ"].HeaderText = "التاريخ";
-        //                    dgvReport.Columns["مصاريف الصيانة"].HeaderText = "مصاريف الصيانة";
-        //                    dgvReport.Columns["مصاريف المطاعم"].HeaderText = "مصاريف المطاعم";
-        //                    dgvReport.Columns["مصاريف المشتريات"].HeaderText = "مصاريف المشتريات";
-        //                    dgvReport.Columns["الإجمالي اليومي"].HeaderText = "الإجمالي اليومي";
-
-        //                    // Display the overall total
-        //                    lblOverallTotal.Text = $"الإجمالي الكلي: {overallTotal}";
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"خطأ أثناء تحميل البيانات: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
 
         private void btnFilter_Click(object sender, EventArgs e)
         {
@@ -308,154 +239,6 @@ namespace Expense_Calculator.Reports
         }
 
 
-
-
-        //private void btnExportExcel_Click(object sender, EventArgs e)
-        //{
-        //    if (dgvReport.Rows.Count == 0)
-        //    {
-        //        MessageBox.Show("لا توجد بيانات للتصدير", "تحذير", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        return;
-        //    }
-
-        //    SaveFileDialog saveFileDialog = new SaveFileDialog
-        //    {
-        //        Filter = "Excel Files (*.xlsx)|*.xlsx",
-        //        Title = "حفظ التقرير كملف Excel"
-        //    };
-
-        //    if (saveFileDialog.ShowDialog() == DialogResult.OK)
-        //    {
-        //        try
-        //        {
-        //            using (var workbook = new ClosedXML.Excel.XLWorkbook())
-        //            {
-        //                var worksheet = workbook.Worksheets.Add("تقرير المصروفات");
-        //                // Add company name
-        //                var companyCell = worksheet.Cell(1, 1);
-        //                companyCell.Value = "اسم الشركة";
-        //                worksheet.Range(1, 1, 1, dgvReport.Columns.Count).Merge();
-        //                companyCell.Style.Font.Bold = true;
-        //                companyCell.Style.Font.FontSize = 18;
-        //                companyCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-
-        //                // Add headers
-        //                for (int i = 0; i < dgvReport.Columns.Count; i++)
-        //                {
-        //                    var headerCell = worksheet.Cell(2, i + 1);
-        //                    headerCell.Value = dgvReport.Columns[i].HeaderText;
-        //                    headerCell.Style.Font.Bold = true;
-        //                    headerCell.Style.Font.FontSize = 14;
-        //                    headerCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-        //                    headerCell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-        //                    headerCell.Style.Fill.BackgroundColor = XLColor.LightGray;
-        //                }
-
-        //                // Add rows
-        //                for (int i = 0; i < dgvReport.Rows.Count; i++)
-        //                {
-        //                    for (int j = 0; j < dgvReport.Columns.Count; j++)
-        //                    {
-        //                        var cell = worksheet.Cell(i + 3, j + 1);
-        //                        cell.Value = dgvReport.Rows[i].Cells[j].Value?.ToString() ?? string.Empty;
-        //                        cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-        //                        cell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-        //                    }
-        //                }
-
-        //                // Adjust column widths
-        //                worksheet.Columns().AdjustToContents();
-
-        //                // Save the file
-        //                workbook.SaveAs(saveFileDialog.FileName);
-        //            }
-
-        //            //MessageBox.Show("تم تصدير التقرير بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //            lblMessages.Text = "تم تصدير التقرير بنجاح";
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show($"خطأ أثناء التصدير إلى Excel: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        }
-        //    }
-        //}
-
-        //private void btnExportExcel_Click(object sender, EventArgs e)
-        //{
-        //    if (dgvReport.Rows.Count == 0)
-        //    {
-        //        lblMessage.Text = "لا توجد بيانات للتصدير"; // Update label instead of showing a MessageBox
-        //        lblMessage.ForeColor = Color.Red; // Set color for error message
-        //        return;
-        //    }
-
-        //    SaveFileDialog saveFileDialog = new SaveFileDialog
-        //    {
-        //        Filter = "Excel Files (*.xlsx)|*.xlsx",
-        //        Title = "حفظ التقرير كملف Excel"
-        //    };
-
-        //    if (saveFileDialog.ShowDialog() == DialogResult.OK)
-        //    {
-        //        try
-        //        {
-        //            using (var workbook = new ClosedXML.Excel.XLWorkbook())
-        //            {
-        //                var worksheet = workbook.Worksheets.Add("تقرير المصروفات");
-
-        //                // Set right-to-left direction
-        //                worksheet.RightToLeft = true;
-
-        //                // Add company name
-        //                var companyCell = worksheet.Cell(1, 1);
-        //                companyCell.Value = "اسم الشركة";
-        //                worksheet.Range(1, 1, 1, dgvReport.Columns.Count).Merge();
-        //                companyCell.Style.Font.Bold = true;
-        //                companyCell.Style.Font.FontSize = 14;
-        //                companyCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-
-        //                // Add headers
-        //                for (int i = 0; i < dgvReport.Columns.Count; i++)
-        //                {
-        //                    var headerCell = worksheet.Cell(2, i + 1);
-        //                    headerCell.Value = dgvReport.Columns[i].HeaderText;
-        //                    headerCell.Style.Font.Bold = true;
-        //                    headerCell.Style.Font.FontSize = 12;
-        //                    headerCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-        //                    headerCell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-        //                    headerCell.Style.Fill.BackgroundColor = XLColor.LightGray;
-        //                }
-
-        //                // Add rows
-        //                for (int i = 0; i < dgvReport.Rows.Count; i++)
-        //                {
-        //                    for (int j = 0; j < dgvReport.Columns.Count; j++)
-        //                    {
-        //                        var cell = worksheet.Cell(i + 3, j + 1);
-        //                        cell.Value = dgvReport.Rows[i].Cells[j].Value?.ToString() ?? string.Empty;
-        //                        cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-        //                        cell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-        //                    }
-        //                }
-
-        //                // Adjust column widths
-        //                worksheet.Columns().AdjustToContents();
-
-        //                // Save the file
-        //                workbook.SaveAs(saveFileDialog.FileName);
-        //            }
-
-        //            lblMessage.Text = "تم تصدير التقرير بنجاح"; // Update label for success message
-        //            lblMessage.ForeColor = Color.Green; // Set color for success message
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            lblMessage.Text = $"خطأ أثناء التصدير إلى Excel: {ex.Message}"; // Update label for error message
-        //            lblMessage.ForeColor = Color.Red; // Set color for error message
-        //        }
-        //    }
-        //}
-
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
             if (dgvReport.Rows.Count == 0)
@@ -583,6 +366,233 @@ namespace Expense_Calculator.Reports
             }
         }
 
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog1.Document = printDocument1;
+            printPreviewDialog1.ShowDialog();
+        }
+
+        //private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        //{
+        //    // Fonts and brushes
+        //    System.Drawing.Font titleFont = new System.Drawing.Font("Arial", 16, System.Drawing.FontStyle.Bold);
+        //    System.Drawing.Font headerFont = new System.Drawing.Font("Arial", 12, System.Drawing.FontStyle.Bold);
+        //    System.Drawing.Font contentFont = new System.Drawing.Font("Arial", 10);
+        //    Brush brush = Brushes.Black;
+        //    Pen blackPen = new Pen(Color.Black, 1);
+
+        //    int margin = 50; // Margins
+        //    int pageWidth = e.PageBounds.Width;
+        //    int pageHeight = e.PageBounds.Height;
+        //    int yPosition = margin; // Starting y position
+
+        //    // Reverse column order for RTL
+        //    var columns = dgvReport.Columns.Cast<DataGridViewColumn>().OrderByDescending(c =>
+        //    {
+        //        if (c.HeaderText == "التاريخ") return int.MaxValue; // Keep datetime as the rightmost column
+        //        if (c.HeaderText == "الإجمالي اليومي") return 0; // Move total to the leftmost
+        //        return 1;
+        //    }).ToList();
+
+        //    // Print company name
+        //    string companyName = "اسم الشركة";
+        //    e.Graphics.DrawString(companyName, titleFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(companyName, titleFont).Width / 2, yPosition));
+        //    yPosition += 40;
+
+        //    // Print report title
+        //    string reportTitle = "تقرير المصروفات";
+        //    e.Graphics.DrawString(reportTitle, titleFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(reportTitle, titleFont).Width / 2, yPosition));
+        //    yPosition += 40;
+
+        //    // Print date range
+        //    string dateRange = $"الفترة من: {dtpFromDate.Value.ToShortDateString()} إلى: {dtpToDate.Value.ToShortDateString()}";
+        //    e.Graphics.DrawString(dateRange, contentFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(dateRange, contentFont).Width / 2, yPosition));
+        //    yPosition += 40;
+
+        //    // Draw table headers
+        //    int columnWidth = (pageWidth - 2 * margin) / columns.Count;
+        //    int headerHeight = 30;
+
+        //    // Header background
+        //    e.Graphics.FillRectangle(Brushes.LightGray, margin, yPosition, pageWidth - 2 * margin, headerHeight);
+
+        //    foreach (var column in columns)
+        //    {
+        //        string headerText = column.HeaderText;
+        //        int columnIndex = columns.IndexOf(column);
+        //        int xPosition = pageWidth - margin - (columnIndex + 1) * columnWidth; // Adjust for RTL
+
+        //        e.Graphics.DrawRectangle(blackPen, xPosition, yPosition, columnWidth, headerHeight);
+        //        e.Graphics.DrawString(headerText, headerFont, brush, new RectangleF(xPosition, yPosition, columnWidth, headerHeight), new StringFormat
+        //        {
+        //            Alignment = StringAlignment.Center,
+        //            LineAlignment = StringAlignment.Center
+        //        });
+        //    }
+        //    yPosition += headerHeight;
+
+        //    // Draw table rows
+        //    foreach (DataGridViewRow row in dgvReport.Rows)
+        //    {
+        //        if (yPosition + 20 > pageHeight - margin)
+        //        {
+        //            e.HasMorePages = true; // Add another page if content doesn't fit
+        //            return;
+        //        }
+
+        //        int rowHeight = 20; // Default row height
+        //        List<int> cellHeights = new List<int>(); // Keep track of cell heights for dynamic adjustment
+
+        //        foreach (var column in columns)
+        //        {
+        //            string cellValue = row.Cells[column.Index].Value?.ToString() ?? string.Empty;
+        //            int columnIndex = columns.IndexOf(column);
+        //            int xPosition = pageWidth - margin - (columnIndex + 1) * columnWidth; // Adjust for RTL
+
+        //            // Measure text height for dynamic cell adjustment
+        //            SizeF textSize = e.Graphics.MeasureString(cellValue, contentFont, columnWidth);
+        //            int dynamicHeight = (int)textSize.Height + 10; // Add padding
+        //            cellHeights.Add(dynamicHeight);
+
+        //            // Draw cell border
+        //            e.Graphics.DrawRectangle(blackPen, xPosition, yPosition, columnWidth, dynamicHeight);
+
+        //            // Draw cell content
+        //            e.Graphics.DrawString(cellValue, contentFont, brush, new RectangleF(xPosition, yPosition, columnWidth, dynamicHeight), new StringFormat
+        //            {
+        //                Alignment = StringAlignment.Center,
+        //                LineAlignment = StringAlignment.Center
+        //            });
+        //        }
+
+        //        // Adjust row height based on the tallest cell
+        //        rowHeight = cellHeights.Max();
+        //        yPosition += rowHeight;
+        //    }
+
+        //    // Print overall total
+        //    yPosition += 20;
+        //    if (yPosition + 20 <= pageHeight - margin)
+        //    {
+        //        string overallTotalText = lblOverallTotal.Text;
+        //        e.Graphics.DrawString(overallTotalText, headerFont, brush, new PointF(pageWidth - margin - e.Graphics.MeasureString(overallTotalText, headerFont).Width, yPosition));
+        //    }
+        //}
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            // Fonts and brushes
+            System.Drawing.Font titleFont = new System.Drawing.Font("Arial", 16, System.Drawing.FontStyle.Bold);
+            System.Drawing.Font headerFont = new System.Drawing.Font("Arial", 12, System.Drawing.FontStyle.Bold);
+            System.Drawing.Font contentFont = new System.Drawing.Font("Arial", 10);
+            Brush brush = Brushes.Black;
+            Pen blackPen = new Pen(Color.Black, 1);
+
+            int margin = 50; // Margins
+            int pageWidth = e.PageBounds.Width;
+            int pageHeight = e.PageBounds.Height;
+            int yPosition = margin; // Starting y position
+
+            // Reverse column order for RTL
+            var columns = dgvReport.Columns.Cast<DataGridViewColumn>().OrderByDescending(c =>
+            {
+                if (c.HeaderText == "التاريخ") return int.MaxValue; // Keep datetime as the rightmost column
+                if (c.HeaderText == "الإجمالي اليومي") return 0; // Move total to the leftmost
+                return 1;
+            }).ToList();
+
+            // Print company name
+            string companyName = "اسم الشركة";
+            e.Graphics.DrawString(companyName, titleFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(companyName, titleFont).Width / 2, yPosition));
+            yPosition += 40;
+
+            // Print report title
+            string reportTitle = "تقرير المصروفات";
+            e.Graphics.DrawString(reportTitle, titleFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(reportTitle, titleFont).Width / 2, yPosition));
+            yPosition += 40;
+
+            // Print date range
+            string dateRange = $"الفترة من: {dtpFromDate.Value.ToShortDateString()} إلى: {dtpToDate.Value.ToShortDateString()}";
+            e.Graphics.DrawString(dateRange, contentFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(dateRange, contentFont).Width / 2, yPosition));
+            yPosition += 40;
+
+            // Draw table headers
+            int columnWidth = (pageWidth - 2 * margin) / columns.Count;
+            int headerHeight = 30;
+
+            // Header background
+            e.Graphics.FillRectangle(Brushes.LightGray, margin, yPosition, pageWidth - 2 * margin, headerHeight);
+
+            foreach (var column in columns)
+            {
+                string headerText = column.HeaderText;
+                int columnIndex = columns.IndexOf(column);
+                int xPosition = pageWidth - margin - (columnIndex + 1) * columnWidth; // Adjust for RTL
+
+                e.Graphics.DrawRectangle(blackPen, xPosition, yPosition, columnWidth, headerHeight);
+                e.Graphics.DrawString(headerText, headerFont, brush, new RectangleF(xPosition, yPosition, columnWidth, headerHeight), new StringFormat
+                {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                });
+            }
+            yPosition += headerHeight;
+
+            // Draw table rows
+            foreach (DataGridViewRow row in dgvReport.Rows)
+            {
+                if (yPosition + 20 > pageHeight - margin)
+                {
+                    e.HasMorePages = true; // Add another page if content doesn't fit
+                    return;
+                }
+
+                int rowHeight = 20; // Default row height
+                List<int> cellHeights = new List<int>(); // Keep track of cell heights for dynamic adjustment
+
+                foreach (var column in columns)
+                {
+                    string cellValue = row.Cells[column.Index].Value?.ToString() ?? string.Empty;
+                    int columnIndex = columns.IndexOf(column);
+                    int xPosition = pageWidth - margin - (columnIndex + 1) * columnWidth; // Adjust for RTL
+
+                    // Measure text height for dynamic cell adjustment
+                    SizeF textSize = e.Graphics.MeasureString(cellValue, contentFont, columnWidth);
+                    int dynamicHeight = (int)textSize.Height + 10; // Add padding
+                    cellHeights.Add(dynamicHeight);
+                }
+
+                // Set rowHeight to the maximum height of all cells in the row
+                rowHeight = cellHeights.Max();
+
+                // Draw cells in the row
+                foreach (var column in columns)
+                {
+                    string cellValue = row.Cells[column.Index].Value?.ToString() ?? string.Empty;
+                    int columnIndex = columns.IndexOf(column);
+                    int xPosition = pageWidth - margin - (columnIndex + 1) * columnWidth; // Adjust for RTL
+
+                    // Draw cell border
+                    e.Graphics.DrawRectangle(blackPen, xPosition, yPosition, columnWidth, rowHeight);
+
+                    // Draw cell content
+                    e.Graphics.DrawString(cellValue, contentFont, brush, new RectangleF(xPosition, yPosition, columnWidth, rowHeight), new StringFormat
+                    {
+                        Alignment = StringAlignment.Center,
+                        LineAlignment = StringAlignment.Center
+                    });
+                }
+
+                yPosition += rowHeight; // Move to the next row
+            }
+
+            // Print overall total
+            yPosition += 20;
+            if (yPosition + 20 <= pageHeight - margin)
+            {
+                string overallTotalText = lblOverallTotal.Text;
+                e.Graphics.DrawString(overallTotalText, headerFont, brush, new PointF(pageWidth - margin - e.Graphics.MeasureString(overallTotalText, headerFont).Width, yPosition));
+            }
+        }
 
 
     }
