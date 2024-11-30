@@ -446,13 +446,21 @@ namespace Expense_Calculator.Reports
                         companyCell.Value = "اسم الشركة";
                         worksheet.Range(1, 1, 1, dgvReport.Columns.Count).Merge();
                         companyCell.Style.Font.Bold = true;
-                        companyCell.Style.Font.FontSize = 14;
+                        companyCell.Style.Font.FontSize = 16;
                         companyCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                        // Add date range
+                        var dateRangeCell = worksheet.Cell(2, 1);
+                        dateRangeCell.Value = $"الفترة من: {dtpFromDate.Value.ToShortDateString()} إلى: {dtpToDate.Value.ToShortDateString()}";
+                        worksheet.Range(2, 1, 2, dgvReport.Columns.Count).Merge();
+                        dateRangeCell.Style.Font.Bold = true;
+                        dateRangeCell.Style.Font.FontSize = 14;
+                        dateRangeCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                         // Add headers
                         for (int i = 0; i < dgvReport.Columns.Count; i++)
                         {
-                            var headerCell = worksheet.Cell(2, i + 1);
+                            var headerCell = worksheet.Cell(3, i + 1);
                             headerCell.Value = dgvReport.Columns[i].HeaderText;
                             headerCell.Style.Font.Bold = true;
                             headerCell.Style.Font.FontSize = 12;
@@ -462,38 +470,59 @@ namespace Expense_Calculator.Reports
                         }
 
                         // Add rows
-                        decimal overallTotal = 0; // To calculate total expenses
+                        decimal overallTotal = 0;
                         for (int i = 0; i < dgvReport.Rows.Count; i++)
                         {
-                            decimal dailyTotal = 0;
                             for (int j = 0; j < dgvReport.Columns.Count; j++)
                             {
-                                var cell = worksheet.Cell(i + 3, j + 1);
+                                var cell = worksheet.Cell(i + 4, j + 1);
                                 var value = dgvReport.Rows[i].Cells[j].Value?.ToString() ?? string.Empty;
 
-                                cell.Value = value;
+                                // Check if the column contains numeric data
+                                if (dgvReport.Columns[j].HeaderText == "مصاريف الصيانة" ||
+                                    dgvReport.Columns[j].HeaderText == "مصاريف المطاعم" ||
+                                    dgvReport.Columns[j].HeaderText == "مصاريف المشتريات" ||
+                                    dgvReport.Columns[j].HeaderText == "الإجمالي اليومي")
+                                {
+                                    if (decimal.TryParse(value, out decimal numericValue))
+                                    {
+                                        cell.Value = numericValue; // Store as numeric
+                                        cell.Style.NumberFormat.Format = "#,##0.00"; // Format as number with two decimal places
+                                        if (dgvReport.Columns[j].HeaderText == "الإجمالي اليومي")
+                                        {
+                                            overallTotal += numericValue; // Calculate total directly
+                                        }
+                                    }
+                                    else
+                                    {
+                                        cell.Value = value; // Fallback for non-numeric data
+                                    }
+                                }
+                                else
+                                {
+                                    cell.Value = value; // Store as string
+                                }
+
+                                cell.Style.Font.FontSize = 11;
                                 cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
                                 cell.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-
-                                // Calculate daily total if this is the "الإجمالي اليومي" column
-                                if (dgvReport.Columns[j].HeaderText == "الإجمالي اليومي" && decimal.TryParse(value, out dailyTotal))
-                                {
-                                    overallTotal += dailyTotal;
-                                }
                             }
                         }
 
                         // Add overall total row
-                        var totalRow = worksheet.Cell(dgvReport.Rows.Count + 3, 1);
+                        var totalRow = worksheet.Cell(dgvReport.Rows.Count + 4, 1);
                         totalRow.Value = "الإجمالي الكلي:";
-                        worksheet.Range(dgvReport.Rows.Count + 3, 1, dgvReport.Rows.Count + 3, dgvReport.Columns.Count - 1).Merge();
+                        worksheet.Range(dgvReport.Rows.Count + 4, 1, dgvReport.Rows.Count + 4, dgvReport.Columns.Count - 1).Merge();
                         totalRow.Style.Font.Bold = true;
+                        totalRow.Style.Font.FontSize = 12;
                         totalRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                        var totalCell = worksheet.Cell(dgvReport.Rows.Count + 3, dgvReport.Columns.Count);
-                        totalCell.Value = overallTotal;
+                        var totalCell = worksheet.Cell(dgvReport.Rows.Count + 4, dgvReport.Columns.Count);
+                        totalCell.Value = overallTotal; // Store as numeric
                         totalCell.Style.Font.Bold = true;
+                        totalCell.Style.Font.FontSize = 12;
                         totalCell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                        totalCell.Style.NumberFormat.Format = "#,##0.00"; // Format as number with two decimal places
 
                         // Adjust column widths
                         worksheet.Columns().AdjustToContents();

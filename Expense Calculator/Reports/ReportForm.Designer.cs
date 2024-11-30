@@ -42,7 +42,6 @@
             this.pnFill = new System.Windows.Forms.Panel();
             this.lblOverallTotal = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblMessages = new System.Windows.Forms.Label();
             this.lblMessage = new System.Windows.Forms.Label();
             this.pnMainForm.SuspendLayout();
             this.pnTop.SuspendLayout();
@@ -166,8 +165,6 @@
             // pnFill
             // 
             this.pnFill.BackColor = System.Drawing.SystemColors.ControlText;
-            this.pnFill.Controls.Add(this.lblMessage);
-            this.pnFill.Controls.Add(this.lblOverallTotal);
             this.pnFill.Controls.Add(this.panel1);
             this.pnFill.Controls.Add(this.dgvReport);
             this.pnFill.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -178,44 +175,37 @@
             // 
             // lblOverallTotal
             // 
-            this.lblOverallTotal.AutoSize = true;
-            this.lblOverallTotal.ForeColor = System.Drawing.Color.Cornsilk;
-            this.lblOverallTotal.Location = new System.Drawing.Point(141, 352);
+            this.lblOverallTotal.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblOverallTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblOverallTotal.Font = new System.Drawing.Font("LBC", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOverallTotal.ForeColor = System.Drawing.Color.Black;
+            this.lblOverallTotal.Location = new System.Drawing.Point(0, 0);
             this.lblOverallTotal.Name = "lblOverallTotal";
-            this.lblOverallTotal.Size = new System.Drawing.Size(79, 26);
+            this.lblOverallTotal.Size = new System.Drawing.Size(929, 72);
             this.lblOverallTotal.TabIndex = 14;
-            this.lblOverallTotal.Text = "من تاريخ";
             this.lblOverallTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Black;
-            this.panel1.Controls.Add(this.lblMessages);
+            this.panel1.Controls.Add(this.lblOverallTotal);
+            this.panel1.Controls.Add(this.lblMessage);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 422);
+            this.panel1.Location = new System.Drawing.Point(0, 377);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(929, 67);
+            this.panel1.Size = new System.Drawing.Size(929, 112);
             this.panel1.TabIndex = 16;
-            // 
-            // lblMessages
-            // 
-            this.lblMessages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMessages.ForeColor = System.Drawing.Color.Cornsilk;
-            this.lblMessages.Location = new System.Drawing.Point(0, 0);
-            this.lblMessages.Name = "lblMessages";
-            this.lblMessages.Size = new System.Drawing.Size(929, 67);
-            this.lblMessages.TabIndex = 14;
-            this.lblMessages.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMessage
             // 
-            this.lblMessage.AutoSize = true;
+            this.lblMessage.BackColor = System.Drawing.SystemColors.GrayText;
+            this.lblMessage.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblMessage.Font = new System.Drawing.Font("LBC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMessage.ForeColor = System.Drawing.Color.Cornsilk;
-            this.lblMessage.Location = new System.Drawing.Point(141, 393);
+            this.lblMessage.Location = new System.Drawing.Point(0, 72);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(79, 26);
+            this.lblMessage.Size = new System.Drawing.Size(929, 40);
             this.lblMessage.TabIndex = 14;
-            this.lblMessage.Text = "من تاريخ";
             this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReportForm
@@ -237,7 +227,6 @@
             this.pnTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).EndInit();
             this.pnFill.ResumeLayout(false);
-            this.pnFill.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -258,8 +247,7 @@
         private System.Windows.Forms.DataGridView dgvReport;
         private System.Windows.Forms.Panel pnFill;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lblMessages;
-        private System.Windows.Forms.Label lblOverallTotal;
         private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.Label lblOverallTotal;
     }
 }
