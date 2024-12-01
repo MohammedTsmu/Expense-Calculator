@@ -157,14 +157,14 @@
             this.dgvReport.Name = "dgvReport";
             this.dgvReport.RowHeadersWidth = 51;
             this.dgvReport.RowTemplate.Height = 24;
-            this.dgvReport.Size = new System.Drawing.Size(1062, 489);
+            this.dgvReport.Size = new System.Drawing.Size(1062, 377);
             this.dgvReport.TabIndex = 6;
             // 
             // pnFill
             // 
             this.pnFill.BackColor = System.Drawing.SystemColors.ControlText;
-            this.pnFill.Controls.Add(this.panel1);
             this.pnFill.Controls.Add(this.dgvReport);
+            this.pnFill.Controls.Add(this.panel1);
             this.pnFill.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnFill.Location = new System.Drawing.Point(0, 184);
             this.pnFill.Name = "pnFill";
@@ -228,12 +228,12 @@
             this.Controls.Add(this.pnFill);
             this.Controls.Add(this.pnTop);
             this.Font = new System.Drawing.Font("LBC", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ReportForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "التقارير";
+            this.Text = "تقارير الصرفيات لمعمل سما دجلة";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnTop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).EndInit();

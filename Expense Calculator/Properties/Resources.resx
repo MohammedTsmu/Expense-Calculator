@@ -163,4 +163,61 @@
   <data name="Add Database" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add Database.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Expense_100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Expense_100.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Expense_40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Expense_40.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Expense_50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Expense_50.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_128.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_256.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="money_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\money_32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="money_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\money_48.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_512.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_64.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_72" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_72.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_96" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_96.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_PNG_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_PNG_128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_PNG_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_PNG_256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_PNG_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_PNG_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_PNG_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_PNG_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_PNG_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_PNG_512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_PNG_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_PNG_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_PNG_72" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_PNG_72.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money_PNG_96" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_PNG_96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

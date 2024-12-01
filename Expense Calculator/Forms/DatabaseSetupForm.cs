@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 using ExpenseCalculator.Helpers;
 
 namespace Expense_Calculator
@@ -17,34 +12,42 @@ namespace Expense_Calculator
         public DatabaseSetupForm()
         {
             InitializeComponent();
-
             AttachClearStatusEvents();
+
+            InitializeFormState();
+        }
+
+        // Initialize form state based on database and table existence
+        private void InitializeFormState()
+        {
+            if (CheckDatabaseAndTablesExist())
+            {
+                DisableForm();
+                ShowMessage("قاعدة البيانات والجداول موجودة بالفعل. لا حاجة إلى إعداد جديد.", Color.DarkGreen);
+            }
+            else
+            {
+                ShowMessage("قاعدة البيانات والجداول غير موجودة. يرجى الإعداد.", Color.DarkRed);
+            }
         }
 
         private void btnTestConnection_Click(object sender, EventArgs e)
         {
             string serverName = txtServerName.Text.Trim();
             string connectionString = $"Server={serverName};Integrated Security=True;";
+            ShowMessage("الرجاء الانتظار، يتم اختبار الاتصال...", Color.DarkGreen);
 
-            DisplayMessage("الرجاء الانتظار, يتم اختبار الاتصال...", Color.DarkGreen, Color.Transparent);
-            //lblStatus.Text = "الرجاء الانتظار, يتم اختبار الاتصال...";
-            try
+            ExecuteDatabaseAction(() =>
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-
-                    DisplayMessage("تم الاتصال بنجاح", Color.DarkGreen, Color.Transparent);
-                    //lblStatus.Text = "تم الاتصال بنجاح";
-                    //lblStatus.ForeColor = System.Drawing.Color.Green;
                 }
-            }
-            catch (Exception ex)
+                ShowMessage("تم الاتصال بنجاح", Color.DarkGreen);
+            }, ex =>
             {
-                DisplayMessage("فشل الاتصال, " + ex.Message, Color.DarkRed, Color.Transparent);
-                //lblStatus.Text = $"فشل الاتصال: {ex.Message}";
-                //lblStatus.ForeColor = System.Drawing.Color.Red;
-            }
+                ShowMessage($"فشل الاتصال: {ex.Message}", Color.DarkRed);
+            });
         }
 
         private void btnSaveAndInitialize_Click(object sender, EventArgs e)
@@ -58,60 +61,131 @@ namespace Expense_Calculator
             string masterConnectionString = $"Server={serverName};Integrated Security=True;";
             string databaseConnectionString = AppConfig.GetConnectionString();
 
-            try
+            ExecuteDatabaseAction(() =>
             {
-                // Step 1: Create Database
-                using (SqlConnection connection = new SqlConnection(masterConnectionString))
+                CreateDatabase(masterConnectionString, databaseName);
+                CreateTables(databaseConnectionString);
+                ShowMessage("تم إنشاء قاعدة البيانات والجداول بنجاح", Color.DarkGreen);
+                DisableForm();
+            }, ex =>
+            {
+                ShowMessage($"خطأ أثناء الإنشاء: {ex.Message}", Color.DarkRed);
+            });
+        }
+
+        // Check if database and tables exist
+        private bool CheckDatabaseAndTablesExist()
+        {
+            string serverName = txtServerName.Text.Trim();
+            string databaseName = txtDatabaseName.Text.Trim();
+            string masterConnectionString = $"Server={serverName};Integrated Security=True;";
+            string databaseConnectionString = $"Server={serverName};Database={databaseName};Integrated Security=True;";
+
+            return DatabaseExists(masterConnectionString, databaseName) && TablesExist(databaseConnectionString, "Expenses");
+        }
+
+        // Check if the database exists
+        private bool DatabaseExists(string connectionString, string databaseName)
+        {
+            return ExecuteDatabaseCheck(() =>
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string createDbQuery = $@"
-                IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = '{databaseName}')
-                BEGIN
-                    CREATE DATABASE [{databaseName}];
-                END";
-                    using (SqlCommand command = new SqlCommand(createDbQuery, connection))
+                    string query = $"SELECT COUNT(*) FROM sys.databases WHERE name = '{databaseName}'";
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.ExecuteNonQuery();
+                        return (int)command.ExecuteScalar() > 0;
                     }
                 }
+            });
+        }
 
-                // Step 2: Create Tables
-                using (SqlConnection connection = new SqlConnection(databaseConnectionString))
+        // Check if the specified table exists
+        private bool TablesExist(string connectionString, string tableName)
+        {
+            return ExecuteDatabaseCheck(() =>
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string createTableQuery = @"
-                IF NOT EXISTS (
-                    SELECT * FROM INFORMATION_SCHEMA.TABLES 
-                    WHERE TABLE_NAME = 'Expenses'
-                )
-                BEGIN
-                    CREATE TABLE Expenses (
-                        ExpenseID INT IDENTITY(1,1) PRIMARY KEY,
-                        ExpenseDate DATETIME NOT NULL,
-                        MaintenanceExpenditure DECIMAL(18, 2) NOT NULL,
-                        RestaurantExpenditure DECIMAL(18, 2) NOT NULL,
-                        PurchasesExpenditure DECIMAL(18, 2) NOT NULL
-                    );
-                END";
-                    using (SqlCommand command = new SqlCommand(createTableQuery, connection))
+                    string query = $"SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}'";
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.ExecuteNonQuery();
+                        return (int)command.ExecuteScalar() > 0;
                     }
                 }
+            });
+        }
 
-
-                //lblStatus.Text = "تم إنشاء قاعدة البيانات والجداول بنجاح";
-                //lblStatus.ForeColor = System.Drawing.Color.Green;
-
-                DisplayMessage("تم إنشاء قاعدة البيانات والجداول بنجاح", Color.DarkGreen, Color.Transparent);
-            }
-            catch (Exception ex)
+        // Create database if not exists
+        private void CreateDatabase(string connectionString, string databaseName)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                DisplayMessage("خطأ, " + ex.Message, Color.DarkRed, Color.Transparent);
-
-                //lblStatus.Text = $"خطأ: {ex.Message}";
-                //lblStatus.ForeColor = System.Drawing.Color.Red;
+                connection.Open();
+                string query = $@"
+                    IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = '{databaseName}')
+                    BEGIN
+                        CREATE DATABASE [{databaseName}];
+                    END";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
             }
+        }
+
+        // Create tables if not exists
+        private void CreateTables(string connectionString)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = @"
+                    IF NOT EXISTS (
+                        SELECT * FROM INFORMATION_SCHEMA.TABLES 
+                        WHERE TABLE_NAME = 'Expenses'
+                    )
+                    BEGIN
+                        CREATE TABLE Expenses (
+                            ExpenseID INT IDENTITY(1,1) PRIMARY KEY,
+                            ExpenseDate DATETIME NOT NULL,
+                            MaintenanceExpenditure DECIMAL(18, 2) NOT NULL,
+                            RestaurantExpenditure DECIMAL(18, 2) NOT NULL,
+                            PurchasesExpenditure DECIMAL(18, 2) NOT NULL
+                        );
+                    END";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        // Disable form fields and buttons
+        private void DisableForm()
+        {
+            txtServerName.Enabled = false;
+            txtDatabaseName.Enabled = false;
+            btnSaveAndInitialize.Enabled = false;
+            btnTestConnection.Enabled = false;
+        }
+
+        // Show a message to the user
+        private async void ShowMessage(string message, Color color, int duration = 3000)
+        {
+            lblStatus.Text = message;
+            lblStatus.ForeColor = color;
+            await Task.Delay(duration);
+            lblStatus.Text = string.Empty;
+        }
+
+        // Attach clear status events
+        private void AttachClearStatusEvents()
+        {
+            txtServerName.TextChanged += ClearStatus;
+            txtDatabaseName.TextChanged += ClearStatus;
         }
 
         private void ClearStatus(object sender, EventArgs e)
@@ -119,24 +193,30 @@ namespace Expense_Calculator
             lblStatus.Text = string.Empty;
         }
 
-        private void AttachClearStatusEvents()
+        // Execute a database action safely
+        private void ExecuteDatabaseAction(Action action, Action<Exception> errorHandler)
         {
-            txtServerName.TextChanged += ClearStatus;
-            txtDatabaseName.TextChanged += ClearStatus;
+            try
+            {
+                action.Invoke();
+            }
+            catch (Exception ex)
+            {
+                errorHandler.Invoke(ex);
+            }
         }
 
-        private async void DisplayMessage(string message, Color textColor, Color backgroundColor, int duration = 3000)
+        // Execute a database check and return a result
+        private bool ExecuteDatabaseCheck(Func<bool> check)
         {
-            lblStatus.Text = message;
-            lblStatus.ForeColor = textColor;
-            lblStatus.BackColor = backgroundColor;
-
-            await Task.Delay(duration);
-
-            // Reset to default state
-            lblStatus.Text = string.Empty;
-            lblStatus.ForeColor = Color.Black;
-            lblStatus.BackColor = Color.Transparent;
+            try
+            {
+                return check.Invoke();
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

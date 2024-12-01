@@ -46,7 +46,7 @@
             // dtpDate
             // 
             this.dtpDate.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dtpDate.Location = new System.Drawing.Point(132, 152);
+            this.dtpDate.Location = new System.Drawing.Point(146, 152);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(373, 33);
             this.dtpDate.TabIndex = 1;
@@ -54,7 +54,7 @@
             // txtMaintenance
             // 
             this.txtMaintenance.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtMaintenance.Location = new System.Drawing.Point(132, 204);
+            this.txtMaintenance.Location = new System.Drawing.Point(146, 204);
             this.txtMaintenance.Name = "txtMaintenance";
             this.txtMaintenance.Size = new System.Drawing.Size(373, 33);
             this.txtMaintenance.TabIndex = 2;
@@ -62,7 +62,7 @@
             // txtRestaurant
             // 
             this.txtRestaurant.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtRestaurant.Location = new System.Drawing.Point(132, 256);
+            this.txtRestaurant.Location = new System.Drawing.Point(146, 256);
             this.txtRestaurant.Name = "txtRestaurant";
             this.txtRestaurant.Size = new System.Drawing.Size(373, 33);
             this.txtRestaurant.TabIndex = 3;
@@ -70,7 +70,7 @@
             // txtPurchases
             // 
             this.txtPurchases.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtPurchases.Location = new System.Drawing.Point(132, 308);
+            this.txtPurchases.Location = new System.Drawing.Point(146, 308);
             this.txtPurchases.Name = "txtPurchases";
             this.txtPurchases.Size = new System.Drawing.Size(373, 33);
             this.txtPurchases.TabIndex = 4;
@@ -117,48 +117,48 @@
             this.lblPurchases.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblPurchases.Image = global::Expense_Calculator.Properties.Resources.Add_Shopping_Cart;
             this.lblPurchases.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblPurchases.Location = new System.Drawing.Point(523, 294);
+            this.lblPurchases.Location = new System.Drawing.Point(494, 294);
             this.lblPurchases.Name = "lblPurchases";
-            this.lblPurchases.Size = new System.Drawing.Size(206, 47);
+            this.lblPurchases.Size = new System.Drawing.Size(252, 47);
             this.lblPurchases.TabIndex = 0;
             this.lblPurchases.Text = "مصاريف المشتريات:";
-            this.lblPurchases.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPurchases.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblRestaurant
             // 
             this.lblRestaurant.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblRestaurant.Image = global::Expense_Calculator.Properties.Resources.Restaurant;
             this.lblRestaurant.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblRestaurant.Location = new System.Drawing.Point(523, 242);
+            this.lblRestaurant.Location = new System.Drawing.Point(494, 242);
             this.lblRestaurant.Name = "lblRestaurant";
-            this.lblRestaurant.Size = new System.Drawing.Size(206, 47);
+            this.lblRestaurant.Size = new System.Drawing.Size(252, 47);
             this.lblRestaurant.TabIndex = 0;
             this.lblRestaurant.Text = "مصاريف المطاعم:";
-            this.lblRestaurant.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblRestaurant.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMaintenance
             // 
             this.lblMaintenance.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblMaintenance.Image = global::Expense_Calculator.Properties.Resources.Service;
             this.lblMaintenance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblMaintenance.Location = new System.Drawing.Point(523, 190);
+            this.lblMaintenance.Location = new System.Drawing.Point(494, 190);
             this.lblMaintenance.Name = "lblMaintenance";
-            this.lblMaintenance.Size = new System.Drawing.Size(206, 47);
+            this.lblMaintenance.Size = new System.Drawing.Size(252, 47);
             this.lblMaintenance.TabIndex = 0;
             this.lblMaintenance.Text = "مصاريف الصيانة:";
-            this.lblMaintenance.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblMaintenance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDate
             // 
             this.lblDate.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblDate.Image = global::Expense_Calculator.Properties.Resources.Time_Machine;
             this.lblDate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDate.Location = new System.Drawing.Point(523, 138);
+            this.lblDate.Location = new System.Drawing.Point(494, 138);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(206, 47);
+            this.lblDate.Size = new System.Drawing.Size(252, 47);
             this.lblDate.TabIndex = 0;
             this.lblDate.Text = "التاريخ:";
-            this.lblDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 

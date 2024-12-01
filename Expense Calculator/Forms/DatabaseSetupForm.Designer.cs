@@ -43,7 +43,8 @@
             // 
             // txtServerName
             // 
-            this.txtServerName.Location = new System.Drawing.Point(283, 232);
+            this.txtServerName.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtServerName.Location = new System.Drawing.Point(280, 232);
             this.txtServerName.Name = "txtServerName";
             this.txtServerName.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtServerName.Size = new System.Drawing.Size(269, 33);
@@ -53,7 +54,8 @@
             // 
             // txtDatabaseName
             // 
-            this.txtDatabaseName.Location = new System.Drawing.Point(283, 305);
+            this.txtDatabaseName.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtDatabaseName.Location = new System.Drawing.Point(280, 305);
             this.txtDatabaseName.Name = "txtDatabaseName";
             this.txtDatabaseName.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtDatabaseName.Size = new System.Drawing.Size(269, 33);
@@ -63,7 +65,7 @@
             // 
             // lblStatus
             // 
-            this.lblStatus.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblStatus.BackColor = System.Drawing.SystemColors.ControlLight;
             this.lblStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblStatus.ForeColor = System.Drawing.SystemColors.Control;
             this.lblStatus.Location = new System.Drawing.Point(0, 583);
@@ -75,12 +77,12 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.lblDatabaseName);
             this.panel1.Controls.Add(this.txtDatabaseName);
-            this.panel1.Controls.Add(this.lblServerName);
             this.panel1.Controls.Add(this.txtServerName);
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.lblStatus);
+            this.panel1.Controls.Add(this.lblDatabaseName);
+            this.panel1.Controls.Add(this.lblServerName);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -89,7 +91,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel2.Controls.Add(this.btnSaveAndInitialize);
             this.panel2.Controls.Add(this.btnTestConnection);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -126,27 +128,29 @@
             // 
             // lblDatabaseName
             // 
+            this.lblDatabaseName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblDatabaseName.Image = global::Expense_Calculator.Properties.Resources.Database;
             this.lblDatabaseName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDatabaseName.Location = new System.Drawing.Point(571, 288);
+            this.lblDatabaseName.Location = new System.Drawing.Point(522, 288);
             this.lblDatabaseName.Name = "lblDatabaseName";
             this.lblDatabaseName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblDatabaseName.Size = new System.Drawing.Size(209, 50);
+            this.lblDatabaseName.Size = new System.Drawing.Size(260, 50);
             this.lblDatabaseName.TabIndex = 0;
             this.lblDatabaseName.Text = "اسم قاعدة البيانات";
-            this.lblDatabaseName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblDatabaseName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblServerName
             // 
+            this.lblServerName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblServerName.Image = global::Expense_Calculator.Properties.Resources.Connect;
             this.lblServerName.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblServerName.Location = new System.Drawing.Point(635, 215);
+            this.lblServerName.Location = new System.Drawing.Point(522, 215);
             this.lblServerName.Name = "lblServerName";
             this.lblServerName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblServerName.Size = new System.Drawing.Size(145, 50);
+            this.lblServerName.Size = new System.Drawing.Size(260, 50);
             this.lblServerName.TabIndex = 0;
             this.lblServerName.Text = "اسم الخادم";
-            this.lblServerName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblServerName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DatabaseSetupForm
             // 
@@ -159,6 +163,7 @@
             this.Name = "DatabaseSetupForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "انشاء وربط قاعدة البيانات والجداول";
             this.panel1.ResumeLayout(false);
