@@ -41,7 +41,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.Controls.Add(this.btnReports);
             this.panel1.Controls.Add(this.btnDatabaseSetup);
             this.panel1.Controls.Add(this.btnDataEntry);
