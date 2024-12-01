@@ -28,114 +28,71 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblDate = new System.Windows.Forms.Label();
-            this.lblMaintenance = new System.Windows.Forms.Label();
             this.lblRestaurant = new System.Windows.Forms.Label();
             this.lblPurchases = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.txtMaintenance = new System.Windows.Forms.TextBox();
             this.txtRestaurant = new System.Windows.Forms.TextBox();
             this.txtPurchases = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.lblStatus = new System.Windows.Forms.TextBox();
             this.pnMainForm = new System.Windows.Forms.Panel();
             this.btnMainForm = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.lblMaintenance = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.pnMainForm.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(590, 54);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(67, 26);
-            this.lblDate.TabIndex = 0;
-            this.lblDate.Text = "التاريخ:";
-            // 
-            // lblMaintenance
-            // 
-            this.lblMaintenance.AutoSize = true;
-            this.lblMaintenance.Location = new System.Drawing.Point(509, 93);
-            this.lblMaintenance.Name = "lblMaintenance";
-            this.lblMaintenance.Size = new System.Drawing.Size(148, 26);
-            this.lblMaintenance.TabIndex = 0;
-            this.lblMaintenance.Text = "مصاريف الصيانة:";
-            // 
             // lblRestaurant
             // 
-            this.lblRestaurant.AutoSize = true;
-            this.lblRestaurant.Location = new System.Drawing.Point(496, 132);
+            this.lblRestaurant.Image = global::Expense_Calculator.Properties.Resources.Restaurant;
+            this.lblRestaurant.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblRestaurant.Location = new System.Drawing.Point(578, 163);
             this.lblRestaurant.Name = "lblRestaurant";
-            this.lblRestaurant.Size = new System.Drawing.Size(161, 26);
+            this.lblRestaurant.Size = new System.Drawing.Size(223, 47);
             this.lblRestaurant.TabIndex = 0;
             this.lblRestaurant.Text = "مصاريف المطاعم:";
+            this.lblRestaurant.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblPurchases
             // 
-            this.lblPurchases.AutoSize = true;
-            this.lblPurchases.Location = new System.Drawing.Point(482, 174);
+            this.lblPurchases.Image = global::Expense_Calculator.Properties.Resources.Add_Shopping_Cart;
+            this.lblPurchases.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPurchases.Location = new System.Drawing.Point(564, 215);
             this.lblPurchases.Name = "lblPurchases";
-            this.lblPurchases.Size = new System.Drawing.Size(175, 26);
+            this.lblPurchases.Size = new System.Drawing.Size(237, 47);
             this.lblPurchases.TabIndex = 0;
             this.lblPurchases.Text = "مصاريف المشتريات:";
+            this.lblPurchases.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // dtpDate
             // 
-            this.dtpDate.Location = new System.Drawing.Point(98, 47);
+            this.dtpDate.Location = new System.Drawing.Point(173, 73);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(373, 33);
             this.dtpDate.TabIndex = 1;
             // 
             // txtMaintenance
             // 
-            this.txtMaintenance.Location = new System.Drawing.Point(98, 91);
+            this.txtMaintenance.Location = new System.Drawing.Point(173, 125);
             this.txtMaintenance.Name = "txtMaintenance";
             this.txtMaintenance.Size = new System.Drawing.Size(373, 33);
             this.txtMaintenance.TabIndex = 2;
             // 
             // txtRestaurant
             // 
-            this.txtRestaurant.Location = new System.Drawing.Point(98, 130);
+            this.txtRestaurant.Location = new System.Drawing.Point(173, 177);
             this.txtRestaurant.Name = "txtRestaurant";
             this.txtRestaurant.Size = new System.Drawing.Size(373, 33);
             this.txtRestaurant.TabIndex = 3;
             // 
             // txtPurchases
             // 
-            this.txtPurchases.Location = new System.Drawing.Point(98, 169);
+            this.txtPurchases.Location = new System.Drawing.Point(173, 229);
             this.txtPurchases.Name = "txtPurchases";
             this.txtPurchases.Size = new System.Drawing.Size(373, 33);
             this.txtPurchases.TabIndex = 4;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(314, 282);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(157, 79);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "حفظ";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(98, 282);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(157, 79);
-            this.btnClear.TabIndex = 6;
-            this.btnClear.Text = "مسح الحقول";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.Location = new System.Drawing.Point(12, 434);
-            this.lblStatus.Multiline = true;
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(649, 182);
-            this.lblStatus.TabIndex = 7;
-            this.lblStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pnMainForm
             // 
@@ -158,13 +115,71 @@
             this.btnMainForm.UseVisualStyleBackColor = false;
             this.btnMainForm.Click += new System.EventHandler(this.btnMainForm_Click_1);
             // 
+            // btnClear
+            // 
+            this.btnClear.Image = global::Expense_Calculator.Properties.Resources.Cancel;
+            this.btnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClear.Location = new System.Drawing.Point(173, 349);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(175, 79);
+            this.btnClear.TabIndex = 6;
+            this.btnClear.Text = "مسح الحقول";
+            this.btnClear.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Image = global::Expense_Calculator.Properties.Resources.Save_Close;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(371, 349);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(175, 79);
+            this.btnSave.TabIndex = 5;
+            this.btnSave.Text = "حفظ";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // lblMaintenance
+            // 
+            this.lblMaintenance.Image = global::Expense_Calculator.Properties.Resources.Service;
+            this.lblMaintenance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblMaintenance.Location = new System.Drawing.Point(591, 111);
+            this.lblMaintenance.Name = "lblMaintenance";
+            this.lblMaintenance.Size = new System.Drawing.Size(210, 47);
+            this.lblMaintenance.TabIndex = 0;
+            this.lblMaintenance.Text = "مصاريف الصيانة:";
+            this.lblMaintenance.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblDate
+            // 
+            this.lblDate.Image = global::Expense_Calculator.Properties.Resources.Time_Machine;
+            this.lblDate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDate.Location = new System.Drawing.Point(672, 59);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(129, 47);
+            this.lblDate.TabIndex = 0;
+            this.lblDate.Text = "التاريخ:";
+            this.lblDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblStatus.Location = new System.Drawing.Point(0, 647);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(929, 26);
+            this.lblStatus.TabIndex = 9;
+            this.lblStatus.Text = "label1";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // DataEntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 673);
-            this.Controls.Add(this.pnMainForm);
             this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.pnMainForm);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtPurchases);
@@ -199,8 +214,8 @@
         private System.Windows.Forms.TextBox txtPurchases;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.TextBox lblStatus;
         private System.Windows.Forms.Panel pnMainForm;
         private System.Windows.Forms.Button btnMainForm;
+        private System.Windows.Forms.Label lblStatus;
     }
 }

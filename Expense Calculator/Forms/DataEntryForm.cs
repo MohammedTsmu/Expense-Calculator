@@ -54,9 +54,12 @@ namespace Expense_Calculator
                     }
                 }
 
-                lblStatus.Text = "تم الحفظ بنجاح";
-                lblStatus.ForeColor = System.Drawing.Color.Green;
-                ClearFields();
+                //lblStatus.Text = "تم الحفظ بنجاح";
+                //lblStatus.ForeColor = System.Drawing.Color.Green;
+                //ClearFields();
+
+                DisplayMessage("تم الحفظ بنجاح", Color.Green, Color.Gray);
+                //DisplayMessage("تم تصفية البيانات بنجاح", Color.White, Color.Green);
             }
             catch (Exception ex)
             {
@@ -91,6 +94,21 @@ namespace Expense_Calculator
             this.Close();
             MainForm mainForm = new MainForm();
             mainForm.ShowDialog();
+        }
+
+
+        private async void DisplayMessage(string message, Color textColor, Color backgroundColor, int duration = 3000)
+        {
+            lblStatus.Text = message;
+            lblStatus.ForeColor = textColor;
+            lblStatus.BackColor = backgroundColor;
+
+            await Task.Delay(duration);
+
+            // Reset to default state
+            lblStatus.Text = string.Empty;
+            lblStatus.ForeColor = Color.Black;
+            lblStatus.BackColor = Color.Gray;
         }
     }
 }
