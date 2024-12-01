@@ -116,140 +116,140 @@ namespace Expense_Calculator.Reports
         }
 
 
-        private void btnExportPdf_Click(object sender, EventArgs e)
-        {
-            if (dgvReport.Rows.Count == 0)
-            {
-                DisplayMessage("لا توجد بيانات للتصدير", Color.White, Color.DarkRed);
-                return;
-            }
+        //private void btnExportPdf_Click(object sender, EventArgs e)
+        //{
+        //    if (dgvReport.Rows.Count == 0)
+        //    {
+        //        DisplayMessage("لا توجد بيانات للتصدير", Color.White, Color.DarkRed);
+        //        return;
+        //    }
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog
-            {
-                Filter = "PDF Files (*.pdf)|*.pdf",
-                Title = "حفظ التقرير كملف PDF"
-            };
+        //    SaveFileDialog saveFileDialog = new SaveFileDialog
+        //    {
+        //        Filter = "PDF Files (*.pdf)|*.pdf",
+        //        Title = "حفظ التقرير كملف PDF"
+        //    };
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    using (FileStream stream = new FileStream(saveFileDialog.FileName, FileMode.Create))
-                    {
-                        Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-                        PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                        pdfDoc.Open();
+        //    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        //    {
+        //        try
+        //        {
+        //            using (FileStream stream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+        //            {
+        //                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+        //                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+        //                pdfDoc.Open();
 
-                        // Add company name
-                        var titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 16, iTextSharp.text.Font.BOLD);
-                        var companyName = new Paragraph("اسم الشركة", titleFont)
-                        {
-                            Alignment = Element.ALIGN_CENTER
-                        };
-                        pdfDoc.Add(companyName);
+        //                // Add company name
+        //                var titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 16, iTextSharp.text.Font.BOLD);
+        //                var companyName = new Paragraph("معمل سما دجلة لصناعة الثرمستون", titleFont)
+        //                {
+        //                    Alignment = Element.ALIGN_CENTER
+        //                };
+        //                pdfDoc.Add(companyName);
 
-                        // Add report title
-                        var reportTitle = new Paragraph("تقرير المصروفات", titleFont)
-                        {
-                            Alignment = Element.ALIGN_CENTER
-                        };
-                        pdfDoc.Add(reportTitle);
+        //                // Add report title
+        //                var reportTitle = new Paragraph("تقرير الصرفيات", titleFont)
+        //                {
+        //                    Alignment = Element.ALIGN_CENTER
+        //                };
+        //                pdfDoc.Add(reportTitle);
 
-                        // Add date range
-                        var dateFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.NORMAL);
-                        var dateRange = new Paragraph($"الفترة من: {dtpFromDate.Value.ToShortDateString()} إلى: {dtpToDate.Value.ToShortDateString()}", dateFont)
-                        {
-                            Alignment = Element.ALIGN_CENTER
-                        };
-                        pdfDoc.Add(dateRange);
+        //                // Add date range
+        //                var dateFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.NORMAL);
+        //                var dateRange = new Paragraph($"الفترة من: {dtpFromDate.Value.ToShortDateString()} إلى: {dtpToDate.Value.ToShortDateString()}", dateFont)
+        //                {
+        //                    Alignment = Element.ALIGN_CENTER
+        //                };
+        //                pdfDoc.Add(dateRange);
 
-                        pdfDoc.Add(new Paragraph("\n")); // Add spacing
+        //                pdfDoc.Add(new Paragraph("\n")); // Add spacing
 
-                        // Create a table
-                        PdfPTable pdfTable = new PdfPTable(dgvReport.Columns.Count)
-                        {
-                            WidthPercentage = 100,
-                            RunDirection = PdfWriter.RUN_DIRECTION_RTL // For Arabic alignment
-                        };
+        //                // Create a table
+        //                PdfPTable pdfTable = new PdfPTable(dgvReport.Columns.Count)
+        //                {
+        //                    WidthPercentage = 100,
+        //                    RunDirection = PdfWriter.RUN_DIRECTION_RTL // For Arabic alignment
+        //                };
 
-                        // Set column widths
-                        pdfTable.SetWidths(new float[] { 2f, 2f, 2f, 2f, 2f }); // Adjust column widths as needed
+        //                // Set column widths
+        //                pdfTable.SetWidths(new float[] { 2f, 2f, 2f, 2f, 2f }); // Adjust column widths as needed
 
-                        // Add headers
-                        var headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
-                        foreach (DataGridViewColumn column in dgvReport.Columns)
-                        {
-                            PdfPCell headerCell = new PdfPCell(new Phrase(column.HeaderText, headerFont))
-                            {
-                                BackgroundColor = BaseColor.LIGHT_GRAY,
-                                HorizontalAlignment = Element.ALIGN_CENTER,
-                                Padding = 5
-                            };
-                            pdfTable.AddCell(headerCell);
-                        }
+        //                // Add headers
+        //                var headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
+        //                foreach (DataGridViewColumn column in dgvReport.Columns)
+        //                {
+        //                    PdfPCell headerCell = new PdfPCell(new Phrase(column.HeaderText, headerFont))
+        //                    {
+        //                        BackgroundColor = BaseColor.LIGHT_GRAY,
+        //                        HorizontalAlignment = Element.ALIGN_CENTER,
+        //                        Padding = 5
+        //                    };
+        //                    pdfTable.AddCell(headerCell);
+        //                }
 
-                        // Add rows
-                        var cellFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
-                        decimal overallTotal = 0;
-                        foreach (DataGridViewRow row in dgvReport.Rows)
-                        {
-                            foreach (DataGridViewCell cell in row.Cells)
-                            {
-                                string value = cell.Value?.ToString() ?? string.Empty;
+        //                // Add rows
+        //                var cellFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
+        //                decimal overallTotal = 0;
+        //                foreach (DataGridViewRow row in dgvReport.Rows)
+        //                {
+        //                    foreach (DataGridViewCell cell in row.Cells)
+        //                    {
+        //                        string value = cell.Value?.ToString() ?? string.Empty;
 
-                                PdfPCell dataCell = new PdfPCell(new Phrase(value, cellFont))
-                                {
-                                    HorizontalAlignment = Element.ALIGN_RIGHT, // Right-align for Arabic
-                                    Padding = 5
-                                };
-                                pdfTable.AddCell(dataCell);
+        //                        PdfPCell dataCell = new PdfPCell(new Phrase(value, cellFont))
+        //                        {
+        //                            HorizontalAlignment = Element.ALIGN_RIGHT, // Right-align for Arabic
+        //                            Padding = 5
+        //                        };
+        //                        pdfTable.AddCell(dataCell);
 
-                                // Calculate overall total for the "الإجمالي اليومي" column
-                                if (dgvReport.Columns[cell.ColumnIndex].HeaderText == "الإجمالي اليومي" && decimal.TryParse(value, out decimal numericValue))
-                                {
-                                    overallTotal += numericValue;
-                                }
-                            }
-                        }
+        //                        // Calculate overall total for the "الإجمالي اليومي" column
+        //                        if (dgvReport.Columns[cell.ColumnIndex].HeaderText == "الإجمالي اليومي" && decimal.TryParse(value, out decimal numericValue))
+        //                        {
+        //                            overallTotal += numericValue;
+        //                        }
+        //                    }
+        //                }
 
-                        // Add overall total row
-                        PdfPCell totalLabelCell = new PdfPCell(new Phrase("الإجمالي الكلي:", headerFont))
-                        {
-                            Colspan = dgvReport.Columns.Count - 1, // Span across all columns except the last
-                            HorizontalAlignment = Element.ALIGN_CENTER,
-                            Padding = 5
-                        };
-                        pdfTable.AddCell(totalLabelCell);
+        //                // Add overall total row
+        //                PdfPCell totalLabelCell = new PdfPCell(new Phrase("الإجمالي الكلي:", headerFont))
+        //                {
+        //                    Colspan = dgvReport.Columns.Count - 1, // Span across all columns except the last
+        //                    HorizontalAlignment = Element.ALIGN_CENTER,
+        //                    Padding = 5
+        //                };
+        //                pdfTable.AddCell(totalLabelCell);
 
-                        PdfPCell totalValueCell = new PdfPCell(new Phrase(overallTotal.ToString("N2"), headerFont))
-                        {
-                            HorizontalAlignment = Element.ALIGN_RIGHT,
-                            Padding = 5
-                        };
-                        pdfTable.AddCell(totalValueCell);
+        //                PdfPCell totalValueCell = new PdfPCell(new Phrase(overallTotal.ToString("N2"), headerFont))
+        //                {
+        //                    HorizontalAlignment = Element.ALIGN_RIGHT,
+        //                    Padding = 5
+        //                };
+        //                pdfTable.AddCell(totalValueCell);
 
-                        pdfDoc.Add(pdfTable);
+        //                pdfDoc.Add(pdfTable);
 
-                        pdfDoc.Close();
-                        stream.Close();
-                    }
+        //                pdfDoc.Close();
+        //                stream.Close();
+        //            }
 
-                    //lblMessage.Text = "تم تصدير التقرير بنجاح";
-                    //lblMessage.ForeColor = Color.White;
-                    //lblMessage.BackColor = Color.Green;
+        //            //lblMessage.Text = "تم تصدير التقرير بنجاح";
+        //            //lblMessage.ForeColor = Color.White;
+        //            //lblMessage.BackColor = Color.Green;
 
-                    DisplayMessage("تم تصدير التقرير بنجاح", Color.White, Color.Green);
+        //            DisplayMessage("تم تصدير التقرير بنجاح", Color.White, Color.Green);
 
-                }
-                catch (Exception ex)
-                {
-                    //lblMessage.Text = $"خطأ أثناء التصدير إلى PDF: {ex.Message}";
-                    //lblMessage.ForeColor = Color.White;
-                    //lblMessage.BackColor = Color.DarkRed;
-                    DisplayMessage($"خطأ أثناء التصدير إلى PDF: {ex.Message}", Color.White, Color.DarkRed);
-                }
-            }
-        }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            //lblMessage.Text = $"خطأ أثناء التصدير إلى PDF: {ex.Message}";
+        //            //lblMessage.ForeColor = Color.White;
+        //            //lblMessage.BackColor = Color.DarkRed;
+        //            DisplayMessage($"خطأ أثناء التصدير إلى PDF: {ex.Message}", Color.White, Color.DarkRed);
+        //        }
+        //    }
+        //}
 
 
         private void btnExportExcel_Click(object sender, EventArgs e)
@@ -274,14 +274,14 @@ namespace Expense_Calculator.Reports
                 {
                     using (var workbook = new ClosedXML.Excel.XLWorkbook())
                     {
-                        var worksheet = workbook.Worksheets.Add("تقرير المصروفات");
+                        var worksheet = workbook.Worksheets.Add("تقرير الصرفيات");
 
                         // Set right-to-left direction
                         worksheet.RightToLeft = true;
 
                         // Add company name
                         var companyCell = worksheet.Cell(1, 1);
-                        companyCell.Value = "اسم الشركة";
+                        companyCell.Value = "معمل سما دجلة لصناعة الثرمستون";
                         worksheet.Range(1, 1, 1, dgvReport.Columns.Count).Merge();
                         companyCell.Style.Font.Bold = true;
                         companyCell.Style.Font.FontSize = 16;
@@ -504,12 +504,12 @@ namespace Expense_Calculator.Reports
             }).ToList();
 
             // Print company name
-            string companyName = "اسم الشركة";
+            string companyName = "معمل سما دجلة لصناعة الثرمستون";
             e.Graphics.DrawString(companyName, titleFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(companyName, titleFont).Width / 2, yPosition));
             yPosition += 40;
 
             // Print report title
-            string reportTitle = "تقرير المصروفات";
+            string reportTitle = "تقرير الصرفيات";
             e.Graphics.DrawString(reportTitle, titleFont, brush, new PointF(pageWidth / 2 - e.Graphics.MeasureString(reportTitle, titleFont).Width / 2, yPosition));
             yPosition += 40;
 

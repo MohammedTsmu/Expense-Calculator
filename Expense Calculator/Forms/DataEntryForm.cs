@@ -31,8 +31,7 @@ namespace Expense_Calculator
                 !decimal.TryParse(txtRestaurant.Text.Trim(), out restaurant) ||
                 !decimal.TryParse(txtPurchases.Text.Trim(), out purchases))
             {
-                lblStatus.Text = "يرجى إدخال أرقام صحيحة لجميع الحقول";
-                lblStatus.ForeColor = System.Drawing.Color.Red;
+                DisplayMessage("يرجى إدخال أرقام صحيحة لجميع الحقول", Color.DarkRed, Color.Transparent);
                 return;
             }
 
@@ -59,12 +58,13 @@ namespace Expense_Calculator
 
                 DisplayMessage("تم الحفظ بنجاح", Color.DarkGreen, Color.Transparent);
                 ClearFields();
-                //DisplayMessage("تم تصفية البيانات بنجاح", Color.White, Color.Green);
             }
             catch (Exception ex)
             {
-                lblStatus.Text = $"خطأ أثناء الحفظ: {ex.Message}";
-                lblStatus.ForeColor = System.Drawing.Color.Red;
+                DisplayMessage("تم الحفظ بنجاح, " + ex.Message, Color.DarkRed, Color.Transparent);
+
+                //lblStatus.Text = $"خطأ أثناء الحفظ: {ex.Message}";
+                //lblStatus.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -82,20 +82,6 @@ namespace Expense_Calculator
             txtPurchases.Clear();
             //lblStatus.Text = string.Empty;
         }
-
-        private void btnMainForm_Click(object sender, EventArgs e)
-        {
-            MainForm mainForm = new MainForm();
-            mainForm.ShowDialog();
-        }
-
-        private void btnMainForm_Click_1(object sender, EventArgs e)
-        {
-            this.Close();
-            MainForm mainForm = new MainForm();
-            mainForm.ShowDialog();
-        }
-
 
         private async void DisplayMessage(string message, Color textColor, Color backgroundColor, int duration = 3000)
         {

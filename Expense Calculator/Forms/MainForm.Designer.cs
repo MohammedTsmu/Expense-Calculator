@@ -28,23 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnDataEntry = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnDatabaseSetup = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnReports = new System.Windows.Forms.Button();
+            this.btnDatabaseSetup = new System.Windows.Forms.Button();
+            this.btnDataEntry = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnDataEntry
-            // 
-            this.btnDataEntry.Location = new System.Drawing.Point(80, 64);
-            this.btnDataEntry.Name = "btnDataEntry";
-            this.btnDataEntry.Size = new System.Drawing.Size(140, 84);
-            this.btnDataEntry.TabIndex = 0;
-            this.btnDataEntry.Text = "أدخال سجل جديد";
-            this.btnDataEntry.UseVisualStyleBackColor = true;
-            this.btnDataEntry.Click += new System.EventHandler(this.btnDataEntry_Click);
             // 
             // panel1
             // 
@@ -55,37 +45,56 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(310, 673);
+            this.panel1.Size = new System.Drawing.Size(347, 673);
             this.panel1.TabIndex = 1;
-            // 
-            // btnDatabaseSetup
-            // 
-            this.btnDatabaseSetup.Location = new System.Drawing.Point(80, 154);
-            this.btnDatabaseSetup.Name = "btnDatabaseSetup";
-            this.btnDatabaseSetup.Size = new System.Drawing.Size(140, 84);
-            this.btnDatabaseSetup.TabIndex = 0;
-            this.btnDatabaseSetup.Text = "انشاء قاعدة بيانات";
-            this.btnDatabaseSetup.UseVisualStyleBackColor = true;
-            this.btnDatabaseSetup.Click += new System.EventHandler(this.btnDatabaseSetup_Click);
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(310, 0);
+            this.panel2.Location = new System.Drawing.Point(347, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 673);
             this.panel2.TabIndex = 1;
             // 
             // btnReports
             // 
-            this.btnReports.Location = new System.Drawing.Point(80, 244);
+            this.btnReports.Image = global::Expense_Calculator.Properties.Resources.Report;
+            this.btnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReports.Location = new System.Drawing.Point(22, 162);
             this.btnReports.Name = "btnReports";
-            this.btnReports.Size = new System.Drawing.Size(140, 84);
+            this.btnReports.Size = new System.Drawing.Size(313, 142);
             this.btnReports.TabIndex = 0;
             this.btnReports.Text = "التقارير";
+            this.btnReports.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnReports.UseVisualStyleBackColor = true;
             this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
+            // 
+            // btnDatabaseSetup
+            // 
+            this.btnDatabaseSetup.Image = global::Expense_Calculator.Properties.Resources.Add_Database;
+            this.btnDatabaseSetup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDatabaseSetup.Location = new System.Drawing.Point(22, 312);
+            this.btnDatabaseSetup.Name = "btnDatabaseSetup";
+            this.btnDatabaseSetup.Size = new System.Drawing.Size(313, 142);
+            this.btnDatabaseSetup.TabIndex = 0;
+            this.btnDatabaseSetup.Text = "انشاء قاعدة بيانات";
+            this.btnDatabaseSetup.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDatabaseSetup.UseVisualStyleBackColor = true;
+            this.btnDatabaseSetup.Click += new System.EventHandler(this.btnDatabaseSetup_Click);
+            // 
+            // btnDataEntry
+            // 
+            this.btnDataEntry.Image = global::Expense_Calculator.Properties.Resources.New_Record;
+            this.btnDataEntry.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDataEntry.Location = new System.Drawing.Point(22, 12);
+            this.btnDataEntry.Name = "btnDataEntry";
+            this.btnDataEntry.Size = new System.Drawing.Size(313, 142);
+            this.btnDataEntry.TabIndex = 0;
+            this.btnDataEntry.Text = "أدخال سجل جديد";
+            this.btnDataEntry.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDataEntry.UseVisualStyleBackColor = true;
+            this.btnDataEntry.Click += new System.EventHandler(this.btnDataEntry_Click);
             // 
             // MainForm
             // 
@@ -98,7 +107,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "حاسبة المصروفات";
             this.Load += new System.EventHandler(this.MainForm_Load);

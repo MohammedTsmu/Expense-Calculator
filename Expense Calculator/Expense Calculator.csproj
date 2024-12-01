@@ -238,5 +238,14 @@
   <ItemGroup>
     <None Include="Resources\Data Transfer.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New Record.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add Database.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

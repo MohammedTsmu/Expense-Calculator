@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportForm));
-            this.pnMainForm = new System.Windows.Forms.Panel();
-            this.btnMainForm = new System.Windows.Forms.Button();
             this.pnTop = new System.Windows.Forms.Panel();
-            this.btnExportPdf = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.btnExportExcel = new System.Windows.Forms.Button();
+            this.btnFilter = new System.Windows.Forms.Button();
             this.dtpToDate = new System.Windows.Forms.DateTimePicker();
             this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
             this.lblToDate = new System.Windows.Forms.Label();
+            this.lblFromDate = new System.Windows.Forms.Label();
             this.dgvReport = new System.Windows.Forms.DataGridView();
             this.pnFill = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -43,43 +44,17 @@
             this.lblMessage = new System.Windows.Forms.Label();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.btnPrint = new System.Windows.Forms.Button();
-            this.btnExportExcel = new System.Windows.Forms.Button();
-            this.btnFilter = new System.Windows.Forms.Button();
-            this.lblFromDate = new System.Windows.Forms.Label();
-            this.pnMainForm.SuspendLayout();
             this.pnTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).BeginInit();
             this.pnFill.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pnMainForm
-            // 
-            this.pnMainForm.BackColor = System.Drawing.Color.DarkSlateBlue;
-            this.pnMainForm.Controls.Add(this.btnMainForm);
-            this.pnMainForm.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnMainForm.Location = new System.Drawing.Point(929, 0);
-            this.pnMainForm.Name = "pnMainForm";
-            this.pnMainForm.Size = new System.Drawing.Size(133, 673);
-            this.pnMainForm.TabIndex = 9;
-            // 
-            // btnMainForm
-            // 
-            this.btnMainForm.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.btnMainForm.Location = new System.Drawing.Point(6, 12);
-            this.btnMainForm.Name = "btnMainForm";
-            this.btnMainForm.Size = new System.Drawing.Size(126, 124);
-            this.btnMainForm.TabIndex = 0;
-            this.btnMainForm.Text = "الصفحة الرئيسية";
-            this.btnMainForm.UseVisualStyleBackColor = false;
-            // 
             // pnTop
             // 
             this.pnTop.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.pnTop.Controls.Add(this.btnPrint);
             this.pnTop.Controls.Add(this.btnExportExcel);
-            this.pnTop.Controls.Add(this.btnExportPdf);
             this.pnTop.Controls.Add(this.btnFilter);
             this.pnTop.Controls.Add(this.dtpToDate);
             this.pnTop.Controls.Add(this.dtpFromDate);
@@ -88,43 +63,90 @@
             this.pnTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnTop.Location = new System.Drawing.Point(0, 0);
             this.pnTop.Name = "pnTop";
-            this.pnTop.Size = new System.Drawing.Size(929, 184);
+            this.pnTop.Size = new System.Drawing.Size(1062, 184);
             this.pnTop.TabIndex = 14;
             // 
-            // btnExportPdf
+            // btnPrint
             // 
-            this.btnExportPdf.Location = new System.Drawing.Point(444, 127);
-            this.btnExportPdf.Name = "btnExportPdf";
-            this.btnExportPdf.Size = new System.Drawing.Size(179, 50);
-            this.btnExportPdf.TabIndex = 18;
-            this.btnExportPdf.Text = "تصدير إلى PDF";
-            this.btnExportPdf.UseVisualStyleBackColor = true;
-            this.btnExportPdf.Click += new System.EventHandler(this.btnExportPdf_Click);
+            this.btnPrint.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnPrint.Image = global::Expense_Calculator.Properties.Resources.Print;
+            this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrint.Location = new System.Drawing.Point(287, 129);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(199, 50);
+            this.btnPrint.TabIndex = 5;
+            this.btnPrint.Text = "طباعة التقرير";
+            this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnExportExcel.Image = global::Expense_Calculator.Properties.Resources.Microsoft_Excel_2019;
+            this.btnExportExcel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExportExcel.Location = new System.Drawing.Point(494, 129);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(199, 50);
+            this.btnExportExcel.TabIndex = 4;
+            this.btnExportExcel.Text = "تصدير إلى Excel";
+            this.btnExportExcel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExportExcel.UseVisualStyleBackColor = true;
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
+            // 
+            // btnFilter
+            // 
+            this.btnFilter.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnFilter.Image = global::Expense_Calculator.Properties.Resources.View;
+            this.btnFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFilter.Location = new System.Drawing.Point(701, 128);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(199, 50);
+            this.btnFilter.TabIndex = 3;
+            this.btnFilter.Text = "عرض التقرير";
+            this.btnFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
             // dtpToDate
             // 
-            this.dtpToDate.Location = new System.Drawing.Point(290, 77);
+            this.dtpToDate.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dtpToDate.Location = new System.Drawing.Point(386, 71);
             this.dtpToDate.Name = "dtpToDate";
             this.dtpToDate.Size = new System.Drawing.Size(373, 33);
-            this.dtpToDate.TabIndex = 15;
+            this.dtpToDate.TabIndex = 2;
             // 
             // dtpFromDate
             // 
-            this.dtpFromDate.Location = new System.Drawing.Point(290, 38);
+            this.dtpFromDate.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dtpFromDate.Location = new System.Drawing.Point(386, 19);
             this.dtpFromDate.Name = "dtpFromDate";
             this.dtpFromDate.Size = new System.Drawing.Size(373, 33);
-            this.dtpFromDate.TabIndex = 16;
+            this.dtpFromDate.TabIndex = 1;
             // 
             // lblToDate
             // 
+            this.lblToDate.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblToDate.Image = global::Expense_Calculator.Properties.Resources.Time_Machine;
             this.lblToDate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblToDate.Location = new System.Drawing.Point(665, 74);
+            this.lblToDate.Location = new System.Drawing.Point(761, 66);
             this.lblToDate.Name = "lblToDate";
             this.lblToDate.Size = new System.Drawing.Size(144, 47);
-            this.lblToDate.TabIndex = 13;
+            this.lblToDate.TabIndex = 0;
             this.lblToDate.Text = "إلى تاريخ";
             this.lblToDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblFromDate
+            // 
+            this.lblFromDate.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblFromDate.Image = global::Expense_Calculator.Properties.Resources.Time_Machine;
+            this.lblFromDate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblFromDate.Location = new System.Drawing.Point(765, 14);
+            this.lblFromDate.Name = "lblFromDate";
+            this.lblFromDate.Size = new System.Drawing.Size(140, 47);
+            this.lblFromDate.TabIndex = 0;
+            this.lblFromDate.Text = "من تاريخ";
+            this.lblFromDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // dgvReport
             // 
@@ -135,8 +157,8 @@
             this.dgvReport.Name = "dgvReport";
             this.dgvReport.RowHeadersWidth = 51;
             this.dgvReport.RowTemplate.Height = 24;
-            this.dgvReport.Size = new System.Drawing.Size(929, 489);
-            this.dgvReport.TabIndex = 15;
+            this.dgvReport.Size = new System.Drawing.Size(1062, 489);
+            this.dgvReport.TabIndex = 6;
             // 
             // pnFill
             // 
@@ -146,7 +168,7 @@
             this.pnFill.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnFill.Location = new System.Drawing.Point(0, 184);
             this.pnFill.Name = "pnFill";
-            this.pnFill.Size = new System.Drawing.Size(929, 489);
+            this.pnFill.Size = new System.Drawing.Size(1062, 489);
             this.pnFill.TabIndex = 15;
             // 
             // panel1
@@ -157,7 +179,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 377);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(929, 112);
+            this.panel1.Size = new System.Drawing.Size(1062, 112);
             this.panel1.TabIndex = 16;
             // 
             // lblOverallTotal
@@ -168,8 +190,8 @@
             this.lblOverallTotal.ForeColor = System.Drawing.Color.Black;
             this.lblOverallTotal.Location = new System.Drawing.Point(0, 0);
             this.lblOverallTotal.Name = "lblOverallTotal";
-            this.lblOverallTotal.Size = new System.Drawing.Size(929, 72);
-            this.lblOverallTotal.TabIndex = 14;
+            this.lblOverallTotal.Size = new System.Drawing.Size(1062, 72);
+            this.lblOverallTotal.TabIndex = 0;
             this.lblOverallTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMessage
@@ -180,8 +202,8 @@
             this.lblMessage.ForeColor = System.Drawing.Color.Cornsilk;
             this.lblMessage.Location = new System.Drawing.Point(0, 72);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(929, 40);
-            this.lblMessage.TabIndex = 14;
+            this.lblMessage.Size = new System.Drawing.Size(1062, 40);
+            this.lblMessage.TabIndex = 0;
             this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // printDocument1
@@ -198,56 +220,6 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
-            // btnPrint
-            // 
-            this.btnPrint.Image = global::Expense_Calculator.Properties.Resources.Print;
-            this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Location = new System.Drawing.Point(30, 128);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(199, 50);
-            this.btnPrint.TabIndex = 17;
-            this.btnPrint.Text = "طباعة التقرير";
-            this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPrint.UseVisualStyleBackColor = true;
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
-            // btnExportExcel
-            // 
-            this.btnExportExcel.Image = global::Expense_Calculator.Properties.Resources.Microsoft_Excel_2019;
-            this.btnExportExcel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportExcel.Location = new System.Drawing.Point(239, 128);
-            this.btnExportExcel.Name = "btnExportExcel";
-            this.btnExportExcel.Size = new System.Drawing.Size(199, 50);
-            this.btnExportExcel.TabIndex = 17;
-            this.btnExportExcel.Text = "تصدير إلى Excel";
-            this.btnExportExcel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnExportExcel.UseVisualStyleBackColor = true;
-            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
-            // 
-            // btnFilter
-            // 
-            this.btnFilter.Image = global::Expense_Calculator.Properties.Resources.View;
-            this.btnFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFilter.Location = new System.Drawing.Point(642, 127);
-            this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(199, 50);
-            this.btnFilter.TabIndex = 19;
-            this.btnFilter.Text = "عرض التقرير";
-            this.btnFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnFilter.UseVisualStyleBackColor = true;
-            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
-            // 
-            // lblFromDate
-            // 
-            this.lblFromDate.Image = global::Expense_Calculator.Properties.Resources.Time_Machine;
-            this.lblFromDate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblFromDate.Location = new System.Drawing.Point(669, 22);
-            this.lblFromDate.Name = "lblFromDate";
-            this.lblFromDate.Size = new System.Drawing.Size(140, 47);
-            this.lblFromDate.TabIndex = 14;
-            this.lblFromDate.Text = "من تاريخ";
-            this.lblFromDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 26F);
@@ -255,14 +227,14 @@
             this.ClientSize = new System.Drawing.Size(1062, 673);
             this.Controls.Add(this.pnFill);
             this.Controls.Add(this.pnTop);
-            this.Controls.Add(this.pnMainForm);
             this.Font = new System.Drawing.Font("LBC", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ReportForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "التقارير";
-            this.pnMainForm.ResumeLayout(false);
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnTop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).EndInit();
             this.pnFill.ResumeLayout(false);
@@ -272,12 +244,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pnMainForm;
-        private System.Windows.Forms.Button btnMainForm;
         private System.Windows.Forms.Panel pnTop;
         private System.Windows.Forms.Button btnExportExcel;
-        private System.Windows.Forms.Button btnExportPdf;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.DateTimePicker dtpToDate;
         private System.Windows.Forms.DateTimePicker dtpFromDate;

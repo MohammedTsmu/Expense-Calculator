@@ -25,20 +25,25 @@ namespace Expense_Calculator
         {
             string serverName = txtServerName.Text.Trim();
             string connectionString = $"Server={serverName};Integrated Security=True;";
-            lblStatus.Text = "الرجاء الانتظار, يتم اختبار الاتصال...";
+
+            DisplayMessage("الرجاء الانتظار, يتم اختبار الاتصال...", Color.DarkGreen, Color.Transparent);
+            //lblStatus.Text = "الرجاء الانتظار, يتم اختبار الاتصال...";
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    lblStatus.Text = "تم الاتصال بنجاح";
-                    lblStatus.ForeColor = System.Drawing.Color.Green;
+
+                    DisplayMessage("تم الاتصال بنجاح", Color.DarkGreen, Color.Transparent);
+                    //lblStatus.Text = "تم الاتصال بنجاح";
+                    //lblStatus.ForeColor = System.Drawing.Color.Green;
                 }
             }
             catch (Exception ex)
             {
-                lblStatus.Text = $"فشل الاتصال: {ex.Message}";
-                lblStatus.ForeColor = System.Drawing.Color.Red;
+                DisplayMessage("فشل الاتصال, " + ex.Message, Color.DarkRed, Color.Transparent);
+                //lblStatus.Text = $"فشل الاتصال: {ex.Message}";
+                //lblStatus.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -95,33 +100,17 @@ namespace Expense_Calculator
                 }
 
 
+                //lblStatus.Text = "تم إنشاء قاعدة البيانات والجداول بنجاح";
+                //lblStatus.ForeColor = System.Drawing.Color.Green;
 
-
-
-
-
-
-
-
-
-
-                //AppConfig.ServerName = txtServerName.Text.Trim();
-                //AppConfig.DatabaseName = txtDatabaseName.Text.Trim();
-
-
-
-
-
-
-
-
-                lblStatus.Text = "تم إنشاء قاعدة البيانات والجداول بنجاح";
-                lblStatus.ForeColor = System.Drawing.Color.Green;
+                DisplayMessage("تم إنشاء قاعدة البيانات والجداول بنجاح", Color.DarkGreen, Color.Transparent);
             }
             catch (Exception ex)
             {
-                lblStatus.Text = $"خطأ: {ex.Message}";
-                lblStatus.ForeColor = System.Drawing.Color.Red;
+                DisplayMessage("خطأ, " + ex.Message, Color.DarkRed, Color.Transparent);
+
+                //lblStatus.Text = $"خطأ: {ex.Message}";
+                //lblStatus.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -136,17 +125,18 @@ namespace Expense_Calculator
             txtDatabaseName.TextChanged += ClearStatus;
         }
 
-        private void btnMainForm_Click(object sender, EventArgs e)
+        private async void DisplayMessage(string message, Color textColor, Color backgroundColor, int duration = 3000)
         {
-            MainForm mainForm = new MainForm();
-            mainForm.ShowDialog();
-        }
+            lblStatus.Text = message;
+            lblStatus.ForeColor = textColor;
+            lblStatus.BackColor = backgroundColor;
 
-        private void btnMainForm_Click_1(object sender, EventArgs e)
-        {
-            this.Close();
-            MainForm mainForm = new MainForm();
-            mainForm.ShowDialog();
+            await Task.Delay(duration);
+
+            // Reset to default state
+            lblStatus.Text = string.Empty;
+            lblStatus.ForeColor = Color.Black;
+            lblStatus.BackColor = Color.Transparent;
         }
     }
 }

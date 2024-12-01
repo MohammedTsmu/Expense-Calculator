@@ -63,7 +63,7 @@
             // 
             // lblStatus
             // 
-            this.lblStatus.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.lblStatus.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.lblStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblStatus.ForeColor = System.Drawing.SystemColors.Control;
             this.lblStatus.Location = new System.Drawing.Point(0, 583);
@@ -102,9 +102,9 @@
             // 
             this.btnSaveAndInitialize.Image = global::Expense_Calculator.Properties.Resources.Save_Close;
             this.btnSaveAndInitialize.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveAndInitialize.Location = new System.Drawing.Point(583, 14);
+            this.btnSaveAndInitialize.Location = new System.Drawing.Point(556, 14);
             this.btnSaveAndInitialize.Name = "btnSaveAndInitialize";
-            this.btnSaveAndInitialize.Size = new System.Drawing.Size(226, 72);
+            this.btnSaveAndInitialize.Size = new System.Drawing.Size(280, 72);
             this.btnSaveAndInitialize.TabIndex = 1;
             this.btnSaveAndInitialize.Text = "حفظ وإنشاء قاعدة البيانات";
             this.btnSaveAndInitialize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -115,9 +115,9 @@
             // 
             this.btnTestConnection.Image = global::Expense_Calculator.Properties.Resources.Data_Transfer;
             this.btnTestConnection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTestConnection.Location = new System.Drawing.Point(253, 14);
+            this.btnTestConnection.Location = new System.Drawing.Point(226, 14);
             this.btnTestConnection.Name = "btnTestConnection";
-            this.btnTestConnection.Size = new System.Drawing.Size(226, 72);
+            this.btnTestConnection.Size = new System.Drawing.Size(280, 72);
             this.btnTestConnection.TabIndex = 1;
             this.btnTestConnection.Text = "اختبار الاتصال";
             this.btnTestConnection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -158,9 +158,9 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DatabaseSetupForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RightToLeftLayout = true;
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DatabaseSetupForm";
+            this.Text = "انشاء وربط قاعدة البيانات والجداول";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
