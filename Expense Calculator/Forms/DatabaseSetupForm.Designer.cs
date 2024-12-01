@@ -102,6 +102,7 @@
             // 
             // btnSaveAndInitialize
             // 
+            this.btnSaveAndInitialize.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSaveAndInitialize.Image = global::Expense_Calculator.Properties.Resources.Save_Close;
             this.btnSaveAndInitialize.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSaveAndInitialize.Location = new System.Drawing.Point(556, 14);
@@ -115,6 +116,7 @@
             // 
             // btnTestConnection
             // 
+            this.btnTestConnection.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnTestConnection.Image = global::Expense_Calculator.Properties.Resources.Data_Transfer;
             this.btnTestConnection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTestConnection.Location = new System.Drawing.Point(226, 14);
@@ -159,6 +161,7 @@
             this.ClientSize = new System.Drawing.Size(1062, 673);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("LBC", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DatabaseSetupForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
