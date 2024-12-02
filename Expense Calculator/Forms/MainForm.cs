@@ -17,7 +17,7 @@ namespace Expense_Calculator
 
         private void btnDataEntry_Click(object sender, EventArgs e)
         {
-            if (!EnsureDatabaseConfigured()) return;
+            //if (!EnsureDatabaseConfigured()) return;
 
             DataEntryForm dataEntryForm = new DataEntryForm();
             dataEntryForm.ShowDialog();
@@ -39,24 +39,24 @@ namespace Expense_Calculator
                 setupForm.ShowDialog();
             }
 
-            if (!AppConfig.IsDatabaseConfigured())
-            {
-                MessageBox.Show("يرجى إعداد قاعدة البيانات أولاً.", "إعداد قاعدة البيانات", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                DatabaseSetupForm setupForm = new DatabaseSetupForm();
-                setupForm.ShowDialog();
+            //if (!AppConfig.IsDatabaseConfigured())
+            //{
+            //    MessageBox.Show("يرجى إعداد قاعدة البيانات أولاً.", "إعداد قاعدة البيانات", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    DatabaseSetupForm setupForm = new DatabaseSetupForm();
+            //    setupForm.ShowDialog();
 
-                // Re-check database configuration after setup
-                if (!AppConfig.IsDatabaseConfigured())
-                {
-                    MessageBox.Show("التطبيق لا يمكنه العمل بدون إعداد قاعدة البيانات.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit(); // Exit if the database is still not configured
-                }
-            }
+            //    // Re-check database configuration after setup
+            //    if (!AppConfig.IsDatabaseConfigured())
+            //    {
+            //        MessageBox.Show("التطبيق لا يمكنه العمل بدون إعداد قاعدة البيانات.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        Application.Exit(); // Exit if the database is still not configured
+            //    }
+            //}
         }
 
         private void btnReports_Click(object sender, EventArgs e)
         {
-            if (!EnsureDatabaseConfigured()) return;
+            //if (!EnsureDatabaseConfigured()) return;
 
             ReportForm reportForm = new ReportForm();
             reportForm.ShowDialog();
@@ -64,18 +64,19 @@ namespace Expense_Calculator
 
         private void btnBackup_Click(object sender, EventArgs e)
         {
-            if (!EnsureDatabaseConfigured()) return;
+            //if (!EnsureDatabaseConfigured()) return;
 
             // Check if the backup folder is configured
+
+            BackupForm backupForm = new BackupForm();
+            backupForm.ShowDialog();
+
             string backupFolder = Properties.Settings.Default.BackupFolder;
             if (string.IsNullOrEmpty(backupFolder))
             {
                 MessageBox.Show("يرجى تعيين مسار النسخ الاحتياطي أولاً من إعدادات النسخ الاحتياطي.", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            BackupForm backupForm = new BackupForm();
-            backupForm.ShowDialog();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -119,14 +120,14 @@ namespace Expense_Calculator
             }
         }
 
-        private bool EnsureDatabaseConfigured()
-        {
-            if (!AppConfig.IsDatabaseConfigured())
-            {
-                MessageBox.Show("يرجى إعداد قاعدة البيانات أولاً.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false; // Block further action
-            }
-            return true;
-        }
+        //private bool EnsureDatabaseConfigured()
+        //{
+        //    if (!AppConfig.IsDatabaseConfigured())
+        //    {
+        //        MessageBox.Show("يرجى إعداد قاعدة البيانات أولاً.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        return false; // Block further action
+        //    }
+        //    return true;
+        //}
     }
 }
