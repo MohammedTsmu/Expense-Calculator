@@ -143,7 +143,7 @@
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(715, 72);
             this.lblStatus.TabIndex = 11;
-            this.lblStatus.Text = "جميع الحقوق محفوظة حاسبة الصرفيات 2024\r\nExpense Calculator v1.0.0\r\n";
+            this.lblStatus.Text = "جميع الحقوق محفوظة حاسبة الصرفيات © 2024\r\nExpense Calculator v1.0.0\r\n";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainForm
