@@ -93,5 +93,17 @@ namespace Expense_Calculator.Properties {
                 this["LastBackupDate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableAutoBackup {
+            get {
+                return ((bool)(this["EnableAutoBackup"]));
+            }
+            set {
+                this["EnableAutoBackup"] = value;
+            }
+        }
     }
 }

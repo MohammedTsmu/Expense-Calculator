@@ -32,6 +32,7 @@
             this.btnConfigureBackup = new System.Windows.Forms.Button();
             this.btnRestoreBackup = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.chkEnableAutoBackup = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnBackupNow
@@ -86,12 +87,24 @@
             this.lblStatus.TabIndex = 10;
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // chkEnableAutoBackup
+            // 
+            this.chkEnableAutoBackup.AutoSize = true;
+            this.chkEnableAutoBackup.Location = new System.Drawing.Point(99, 299);
+            this.chkEnableAutoBackup.Name = "chkEnableAutoBackup";
+            this.chkEnableAutoBackup.Size = new System.Drawing.Size(322, 30);
+            this.chkEnableAutoBackup.TabIndex = 11;
+            this.chkEnableAutoBackup.Text = "تفعيل النسخ الاحتياطي عند الاغلاق";
+            this.chkEnableAutoBackup.UseVisualStyleBackColor = true;
+            this.chkEnableAutoBackup.CheckedChanged += new System.EventHandler(this.chkEnableAutoBackup_CheckedChanged);
+            // 
             // BackupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(862, 473);
+            this.Controls.Add(this.chkEnableAutoBackup);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnRestoreBackup);
             this.Controls.Add(this.btnConfigureBackup);
@@ -107,7 +120,9 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "النسخ الاحتياطي واستعادة البيانات";
+            this.Load += new System.EventHandler(this.BackupForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -117,5 +132,6 @@
         private System.Windows.Forms.Button btnConfigureBackup;
         private System.Windows.Forms.Button btnRestoreBackup;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.CheckBox chkEnableAutoBackup;
     }
 }

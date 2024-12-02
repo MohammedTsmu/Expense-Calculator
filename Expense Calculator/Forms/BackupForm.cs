@@ -49,6 +49,20 @@ namespace Expense_Calculator.Forms
             }
         }
 
+        //private void btnConfigureBackup_Click(object sender, EventArgs e)
+        //{
+        //    using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
+        //    {
+        //        if (folderDialog.ShowDialog() == DialogResult.OK)
+        //        {
+        //            Properties.Settings.Default.BackupFolder = folderDialog.SelectedPath;
+        //            Properties.Settings.Default.Save();
+
+        //            DisplayMessage($"تم تعيين مسار النسخ الاحتياطي إلى: {folderDialog.SelectedPath}", Color.White, Color.Green);
+        //        }
+        //    }
+        //}
+
         private void btnConfigureBackup_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
@@ -60,8 +74,13 @@ namespace Expense_Calculator.Forms
 
                     DisplayMessage($"تم تعيين مسار النسخ الاحتياطي إلى: {folderDialog.SelectedPath}", Color.White, Color.Green);
                 }
+                else
+                {
+                    DisplayMessage("تم إلغاء إعداد مسار النسخ الاحتياطي", Color.White, Color.Orange);
+                }
             }
         }
+
 
         private async void DisplayMessage(string message, Color textColor, Color backgroundColor, int duration = 3000)
         {
@@ -140,5 +159,24 @@ namespace Expense_Calculator.Forms
                 }
             }
         }
+
+        private void BackupForm_Load(object sender, EventArgs e)
+        {
+            // Set the checkbox state based on saved settings
+            chkEnableAutoBackup.Checked = Properties.Settings.Default.EnableAutoBackup;
+        }
+
+        private void chkEnableAutoBackup_CheckedChanged(object sender, EventArgs e)
+        {
+            // Save the checkbox state to settings
+            Properties.Settings.Default.EnableAutoBackup = chkEnableAutoBackup.Checked;
+            Properties.Settings.Default.Save();
+
+            string statusMessage = chkEnableAutoBackup.Checked
+                ? "تم تفعيل النسخ الاحتياطي عند الإغلاق"
+                : "تم تعطيل النسخ الاحتياطي عند الإغلاق";
+            DisplayMessage(statusMessage, Color.White, chkEnableAutoBackup.Checked ? Color.Green : Color.Orange);
+        }
+
     }
 }

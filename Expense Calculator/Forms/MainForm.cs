@@ -13,12 +13,14 @@ namespace Expense_Calculator
         public MainForm()
         {
             InitializeComponent();
+
+            // Add this line to the MainForm constructor or the form's properties in the designer.
+            this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+
         }
 
         private void btnDataEntry_Click(object sender, EventArgs e)
         {
-            //if (!EnsureDatabaseConfigured()) return;
-
             DataEntryForm dataEntryForm = new DataEntryForm();
             dataEntryForm.ShowDialog();
         }
@@ -38,34 +40,16 @@ namespace Expense_Calculator
                 DatabaseSetupForm setupForm = new DatabaseSetupForm();
                 setupForm.ShowDialog();
             }
-
-            //if (!AppConfig.IsDatabaseConfigured())
-            //{
-            //    MessageBox.Show("يرجى إعداد قاعدة البيانات أولاً.", "إعداد قاعدة البيانات", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    DatabaseSetupForm setupForm = new DatabaseSetupForm();
-            //    setupForm.ShowDialog();
-
-            //    // Re-check database configuration after setup
-            //    if (!AppConfig.IsDatabaseConfigured())
-            //    {
-            //        MessageBox.Show("التطبيق لا يمكنه العمل بدون إعداد قاعدة البيانات.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        Application.Exit(); // Exit if the database is still not configured
-            //    }
-            //}
         }
 
         private void btnReports_Click(object sender, EventArgs e)
         {
-            //if (!EnsureDatabaseConfigured()) return;
-
             ReportForm reportForm = new ReportForm();
             reportForm.ShowDialog();
         }
 
         private void btnBackup_Click(object sender, EventArgs e)
         {
-            //if (!EnsureDatabaseConfigured()) return;
-
             // Check if the backup folder is configured
 
             BackupForm backupForm = new BackupForm();
@@ -79,22 +63,59 @@ namespace Expense_Calculator
             }
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
+        //protected override void OnFormClosing(FormClosingEventArgs e)
+        //{
+        //    base.OnFormClosing(e);
+
+        //    // Confirm application close
+        //    var result = MessageBox.Show("هل تريد حقاً إغلاق التطبيق؟", "تأكيد الإغلاق", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        //    if (result != DialogResult.Yes)
+        //    {
+        //        e.Cancel = true;
+        //        return;
+        //    }
+
+        //    // Perform automatic backup on close
+        //    string backupFolder = Properties.Settings.Default.BackupFolder;
+        //    if (!string.IsNullOrEmpty(backupFolder))
+        //    {
+        //        try
+        //        {
+        //            string databaseName = AppConfig.DatabaseName;
+        //            string backupFileName = Path.Combine(backupFolder, $"{databaseName}_{DateTime.Now:yyyyMMddHHmmss}.bak");
+
+        //            using (SqlConnection connection = new SqlConnection(AppConfig.GetConnectionString()))
+        //            {
+        //                connection.Open();
+        //                string query = $"BACKUP DATABASE [{databaseName}] TO DISK = @BackupFile WITH FORMAT";
+        //                using (SqlCommand command = new SqlCommand(query, connection))
+        //                {
+        //                    command.Parameters.AddWithValue("@BackupFile", backupFileName);
+        //                    command.ExecuteNonQuery();
+        //                }
+        //            }
+
+        //            MessageBox.Show("تم النسخ الاحتياطي بنجاح عند إغلاق التطبيق.", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show($"خطأ أثناء النسخ الاحتياطي: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //    }
+        //}
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            base.OnFormClosing(e);
-
-            // Confirm application close
-            var result = MessageBox.Show("هل تريد حقاً إغلاق التطبيق؟", "تأكيد الإغلاق", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result != DialogResult.Yes)
+            if (Properties.Settings.Default.EnableAutoBackup)
             {
-                e.Cancel = true;
-                return;
-            }
+                string backupFolder = Properties.Settings.Default.BackupFolder;
 
-            // Perform automatic backup on close
-            string backupFolder = Properties.Settings.Default.BackupFolder;
-            if (!string.IsNullOrEmpty(backupFolder))
-            {
+                if (string.IsNullOrEmpty(backupFolder))
+                {
+                    MessageBox.Show("لم يتم تعيين مسار النسخ الاحتياطي. يرجى التحقق من الإعدادات.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 try
                 {
                     string databaseName = AppConfig.DatabaseName;
@@ -111,23 +132,14 @@ namespace Expense_Calculator
                         }
                     }
 
-                    MessageBox.Show("تم النسخ الاحتياطي بنجاح عند إغلاق التطبيق.", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("تم النسخ الاحتياطي بنجاح عند الإغلاق", "نسخ احتياطي", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"خطأ أثناء النسخ الاحتياطي: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"خطأ أثناء النسخ الاحتياطي عند الإغلاق: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        //private bool EnsureDatabaseConfigured()
-        //{
-        //    if (!AppConfig.IsDatabaseConfigured())
-        //    {
-        //        MessageBox.Show("يرجى إعداد قاعدة البيانات أولاً.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        return false; // Block further action
-        //    }
-        //    return true;
-        //}
     }
 }
