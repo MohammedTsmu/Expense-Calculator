@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnReports = new System.Windows.Forms.Button();
+            this.btnBackup = new System.Windows.Forms.Button();
             this.btnDatabaseSetup = new System.Windows.Forms.Button();
             this.btnDataEntry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,6 +44,7 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.Controls.Add(this.btnReports);
+            this.panel1.Controls.Add(this.btnBackup);
             this.panel1.Controls.Add(this.btnDatabaseSetup);
             this.panel1.Controls.Add(this.btnDataEntry);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
@@ -53,9 +55,10 @@
             // 
             // btnReports
             // 
+            this.btnReports.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnReports.Image = global::Expense_Calculator.Properties.Resources.Report;
             this.btnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReports.Location = new System.Drawing.Point(22, 162);
+            this.btnReports.Location = new System.Drawing.Point(17, 186);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(313, 142);
             this.btnReports.TabIndex = 1;
@@ -64,11 +67,26 @@
             this.btnReports.UseVisualStyleBackColor = true;
             this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
+            // btnBackup
+            // 
+            this.btnBackup.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnBackup.Image = global::Expense_Calculator.Properties.Resources.Data_Backup;
+            this.btnBackup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBackup.Location = new System.Drawing.Point(17, 344);
+            this.btnBackup.Name = "btnBackup";
+            this.btnBackup.Size = new System.Drawing.Size(313, 142);
+            this.btnBackup.TabIndex = 2;
+            this.btnBackup.Text = "نسخ احتياطي";
+            this.btnBackup.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBackup.UseVisualStyleBackColor = true;
+            this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
+            // 
             // btnDatabaseSetup
             // 
+            this.btnDatabaseSetup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnDatabaseSetup.Image = global::Expense_Calculator.Properties.Resources.Add_Database;
             this.btnDatabaseSetup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDatabaseSetup.Location = new System.Drawing.Point(22, 312);
+            this.btnDatabaseSetup.Location = new System.Drawing.Point(17, 502);
             this.btnDatabaseSetup.Name = "btnDatabaseSetup";
             this.btnDatabaseSetup.Size = new System.Drawing.Size(313, 142);
             this.btnDatabaseSetup.TabIndex = 2;
@@ -79,9 +97,10 @@
             // 
             // btnDataEntry
             // 
+            this.btnDataEntry.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnDataEntry.Image = global::Expense_Calculator.Properties.Resources.New_Record;
             this.btnDataEntry.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDataEntry.Location = new System.Drawing.Point(22, 12);
+            this.btnDataEntry.Location = new System.Drawing.Point(17, 28);
             this.btnDataEntry.Name = "btnDataEntry";
             this.btnDataEntry.Size = new System.Drawing.Size(313, 142);
             this.btnDataEntry.TabIndex = 0;
@@ -99,7 +118,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(697, 157);
             this.label1.TabIndex = 2;
-            this.label1.Text = "صرفيات معمل سما دجلة لصناعة الثرمستون";
+            this.label1.Text = "صرفيات معمل سما دجلة";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
@@ -144,6 +163,7 @@
         private System.Windows.Forms.Button btnReports;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnBackup;
     }
 }
 

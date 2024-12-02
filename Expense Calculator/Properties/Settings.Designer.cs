@@ -58,5 +58,40 @@ namespace Expense_Calculator.Properties {
                 this["DefaultPrinter"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BackupFolder {
+            get {
+                return ((string)(this["BackupFolder"]));
+            }
+            set {
+                this["BackupFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int BackupInterval {
+            get {
+                return ((int)(this["BackupInterval"]));
+            }
+            set {
+                this["BackupInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime LastBackupDate {
+            get {
+                return ((global::System.DateTime)(this["LastBackupDate"]));
+            }
+            set {
+                this["LastBackupDate"] = value;
+            }
+        }
     }
 }
