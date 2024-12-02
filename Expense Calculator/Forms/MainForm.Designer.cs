@@ -36,6 +36,7 @@
             this.btnDataEntry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -133,11 +134,24 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
+            // lblStatus
+            // 
+            this.lblStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.lblStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblStatus.Font = new System.Drawing.Font("LBC", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Location = new System.Drawing.Point(0, 601);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(715, 72);
+            this.lblStatus.TabIndex = 11;
+            this.lblStatus.Text = "جميع الحقوق محفوظة حاسبة الصرفيات 2024\r\nExpense Calculator v1.0.0\r\n";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 673);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
@@ -147,7 +161,7 @@
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "حاسبة المصروفات";
+            this.Text = "حاسبة الصرفيات/ v1.0.0";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -164,6 +178,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnBackup;
+        private System.Windows.Forms.Label lblStatus;
     }
 }
 

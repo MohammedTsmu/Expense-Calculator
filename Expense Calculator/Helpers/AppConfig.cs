@@ -1,4 +1,5 @@
 ﻿using Expense_Calculator.Properties;
+using System.Data.SqlClient;
 //using ExpenseCalculator.Properties; // Replace "ExpenseCalculator" with your actual namespace
 
 namespace ExpenseCalculator.Helpers
@@ -28,6 +29,27 @@ namespace ExpenseCalculator.Helpers
         public static string GetConnectionString()
         {
             return $"Server={ServerName};Database={DatabaseName};Integrated Security=True;";
+        }
+
+        public static bool IsDatabaseConfigured()
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+                {
+                    connection.Open();
+                    string query = "SELECT 1"; // Simple query to verify connectivity
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.ExecuteScalar();
+                    }
+                }
+                return true; // Database exists and is accessible
+            }
+            catch
+            {
+                return false; // Database is not configured or not accessible
+            }
         }
     }
 }

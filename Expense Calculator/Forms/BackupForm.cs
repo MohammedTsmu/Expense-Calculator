@@ -140,7 +140,5 @@ namespace Expense_Calculator.Forms
                 }
             }
         }
-
-
     }
 }

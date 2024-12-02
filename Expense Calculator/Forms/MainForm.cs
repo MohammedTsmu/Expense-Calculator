@@ -17,6 +17,8 @@ namespace Expense_Calculator
 
         private void btnDataEntry_Click(object sender, EventArgs e)
         {
+            if (!EnsureDatabaseConfigured()) return;
+
             DataEntryForm dataEntryForm = new DataEntryForm();
             dataEntryForm.ShowDialog();
         }
@@ -36,16 +38,34 @@ namespace Expense_Calculator
                 DatabaseSetupForm setupForm = new DatabaseSetupForm();
                 setupForm.ShowDialog();
             }
+
+            if (!AppConfig.IsDatabaseConfigured())
+            {
+                MessageBox.Show("يرجى إعداد قاعدة البيانات أولاً.", "إعداد قاعدة البيانات", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DatabaseSetupForm setupForm = new DatabaseSetupForm();
+                setupForm.ShowDialog();
+
+                // Re-check database configuration after setup
+                if (!AppConfig.IsDatabaseConfigured())
+                {
+                    MessageBox.Show("التطبيق لا يمكنه العمل بدون إعداد قاعدة البيانات.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit(); // Exit if the database is still not configured
+                }
+            }
         }
 
         private void btnReports_Click(object sender, EventArgs e)
         {
+            if (!EnsureDatabaseConfigured()) return;
+
             ReportForm reportForm = new ReportForm();
             reportForm.ShowDialog();
         }
 
         private void btnBackup_Click(object sender, EventArgs e)
         {
+            if (!EnsureDatabaseConfigured()) return;
+
             // Check if the backup folder is configured
             string backupFolder = Properties.Settings.Default.BackupFolder;
             if (string.IsNullOrEmpty(backupFolder))
@@ -97,6 +117,16 @@ namespace Expense_Calculator
                     MessageBox.Show($"خطأ أثناء النسخ الاحتياطي: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private bool EnsureDatabaseConfigured()
+        {
+            if (!AppConfig.IsDatabaseConfigured())
+            {
+                MessageBox.Show("يرجى إعداد قاعدة البيانات أولاً.", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false; // Block further action
+            }
+            return true;
         }
     }
 }
