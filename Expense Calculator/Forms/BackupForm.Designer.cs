@@ -52,13 +52,13 @@
             // btnConfigureBackup
             // 
             this.btnConfigureBackup.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnConfigureBackup.Image = global::Expense_Calculator.Properties.Resources.Database_Administrator;
+            this.btnConfigureBackup.Image = global::Expense_Calculator.Properties.Resources.Location;
             this.btnConfigureBackup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConfigureBackup.Location = new System.Drawing.Point(442, 242);
             this.btnConfigureBackup.Name = "btnConfigureBackup";
             this.btnConfigureBackup.Size = new System.Drawing.Size(313, 142);
             this.btnConfigureBackup.TabIndex = 4;
-            this.btnConfigureBackup.Text = "اعدادات النسخ الاحتياطي";
+            this.btnConfigureBackup.Text = "مسار النسخ الاحتياطي";
             this.btnConfigureBackup.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnConfigureBackup.UseVisualStyleBackColor = true;
             this.btnConfigureBackup.Click += new System.EventHandler(this.btnConfigureBackup_Click);

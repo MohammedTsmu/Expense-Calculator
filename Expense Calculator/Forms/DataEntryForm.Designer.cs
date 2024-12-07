@@ -133,7 +133,7 @@
             this.lblRestaurant.Name = "lblRestaurant";
             this.lblRestaurant.Size = new System.Drawing.Size(252, 47);
             this.lblRestaurant.TabIndex = 0;
-            this.lblRestaurant.Text = "مصاريف المطاعم:";
+            this.lblRestaurant.Text = "مصاريف المطعم:";
             this.lblRestaurant.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMaintenance

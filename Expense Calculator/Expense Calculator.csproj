@@ -325,5 +325,8 @@
   <ItemGroup>
     <None Include="Resources\Restore win 11.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Location.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

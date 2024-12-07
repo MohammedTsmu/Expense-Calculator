@@ -127,6 +127,9 @@
   <data name="Database Administrator" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Database Administrator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="View" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\View.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Save Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Save Close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -138,6 +141,9 @@
   </data>
   <data name="Time Machine" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Time Machine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Restore win 11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Restore win 11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Expense_40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Expense_40.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,12 +175,6 @@
   <data name="Money_72" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Money_72.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Money_PNG_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Money_PNG_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Money_PNG_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Money_PNG_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Money_PNG_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Money_PNG_256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -192,6 +192,9 @@
   </data>
   <data name="money_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\money_48.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Data Backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Data Backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Expense_50" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Expense_50.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -211,11 +214,11 @@
   <data name="Money_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Money_64.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Data Backup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Data Backup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Money_PNG_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_PNG_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="View" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\View.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Money_PNG_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money_PNG_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -226,7 +229,7 @@
   <data name="New Record" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\New Record.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Restore win 11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Restore win 11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Location" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Location.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

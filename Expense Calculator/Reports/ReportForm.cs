@@ -43,7 +43,7 @@ namespace Expense_Calculator.Reports
             string query = @"
         SELECT ExpenseDate AS [التاريخ], 
                MaintenanceExpenditure AS [مصاريف الصيانة], 
-               RestaurantExpenditure AS [مصاريف المطاعم], 
+               RestaurantExpenditure AS [مصاريف المطعم], 
                PurchasesExpenditure AS [مصاريف المشتريات] 
         FROM Expenses
         WHERE ExpenseDate >= @FromDate AND ExpenseDate < DATEADD(DAY, 1, @ToDate)
@@ -75,7 +75,7 @@ namespace Expense_Calculator.Reports
                             foreach (DataRow row in dataTable.Rows)
                             {
                                 decimal maintenance = Convert.ToDecimal(row["مصاريف الصيانة"]);
-                                decimal restaurant = Convert.ToDecimal(row["مصاريف المطاعم"]);
+                                decimal restaurant = Convert.ToDecimal(row["مصاريف المطعم"]);
                                 decimal purchases = Convert.ToDecimal(row["مصاريف المشتريات"]);
                                 decimal dailyTotal = maintenance + restaurant + purchases;
                                 row["الإجمالي اليومي"] = dailyTotal;
@@ -92,8 +92,8 @@ namespace Expense_Calculator.Reports
                                     column.HeaderText = "التاريخ";
                                 else if (column.Name == "مصاريف الصيانة")
                                     column.HeaderText = "مصاريف الصيانة";
-                                else if (column.Name == "مصاريف المطاعم")
-                                    column.HeaderText = "مصاريف المطاعم";
+                                else if (column.Name == "مصاريف المطعم")
+                                    column.HeaderText = "مصاريف المطعم";
                                 else if (column.Name == "مصاريف المشتريات")
                                     column.HeaderText = "مصاريف المشتريات";
                                 else if (column.Name == "الإجمالي اليومي")
@@ -318,7 +318,7 @@ namespace Expense_Calculator.Reports
 
                                 // Check if the column contains numeric data
                                 if (dgvReport.Columns[j].HeaderText == "مصاريف الصيانة" ||
-                                    dgvReport.Columns[j].HeaderText == "مصاريف المطاعم" ||
+                                    dgvReport.Columns[j].HeaderText == "مصاريف المطعم" ||
                                     dgvReport.Columns[j].HeaderText == "مصاريف المشتريات" ||
                                     dgvReport.Columns[j].HeaderText == "الإجمالي اليومي")
                                 {
