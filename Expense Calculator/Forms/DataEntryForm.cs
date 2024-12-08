@@ -23,7 +23,8 @@ namespace Expense_Calculator
         private void btnSave_Click(object sender, EventArgs e)
         {
             string connectionString = AppConfig.GetConnectionString();
-            DateTime expenseDate = dtpDate.Value;
+            DateTime expenseDate = dtpDate.Value; // Include time
+
             decimal maintenance, restaurant, purchases;
 
             // Validate inputs
@@ -45,7 +46,7 @@ namespace Expense_Calculator
                 VALUES (@ExpenseDate, @Maintenance, @Restaurant, @Purchases)";
                     using (SqlCommand command = new SqlCommand(insertQuery, connection))
                     {
-                        command.Parameters.AddWithValue("@ExpenseDate", expenseDate);
+                        command.Parameters.AddWithValue("@ExpenseDate", expenseDate); // Store date with time
                         command.Parameters.AddWithValue("@Maintenance", maintenance);
                         command.Parameters.AddWithValue("@Restaurant", restaurant);
                         command.Parameters.AddWithValue("@Purchases", purchases);
@@ -53,18 +54,12 @@ namespace Expense_Calculator
                     }
                 }
 
-                //lblStatus.Text = "تم الحفظ بنجاح";
-                //lblStatus.ForeColor = System.Drawing.Color.Green;
-
                 DisplayMessage("تم الحفظ بنجاح", Color.DarkGreen, Color.Transparent);
                 ClearFields();
             }
             catch (Exception ex)
             {
-                DisplayMessage("تم الحفظ بنجاح, " + ex.Message, Color.DarkRed, Color.Transparent);
-
-                //lblStatus.Text = $"خطأ أثناء الحفظ: {ex.Message}";
-                //lblStatus.ForeColor = System.Drawing.Color.Red;
+                DisplayMessage($"خطأ أثناء الحفظ: {ex.Message}", Color.DarkRed, Color.Transparent);
             }
         }
 

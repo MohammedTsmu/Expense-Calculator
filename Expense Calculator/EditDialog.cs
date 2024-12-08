@@ -10,24 +10,15 @@ using System.Windows.Forms;
 
 namespace Expense_Calculator
 {
-    //public partial class EditDialog : Form
-    //{
-    //    public EditDialog()
-    //    {
-    //        InitializeComponent();
-    //    }
-
-    //    private void btnSave_Click(object sender, EventArgs e)
-    //    {
-
-    //    }
-    //}
 
     public partial class EditDialog : Form
     {
         public decimal MaintenanceExpenditure { get; private set; }
         public decimal RestaurantExpenditure { get; private set; }
         public decimal PurchasesExpenditure { get; private set; }
+
+        // Add a property to expose the updated date
+        public DateTime ExpenseDate => dtpExpenseDate.Value;
 
         public EditDialog(DateTime expenseDate, decimal maintenance, decimal restaurant, decimal purchases)
         {
@@ -56,5 +47,6 @@ namespace Expense_Calculator
             }
         }
     }
+
 
 }

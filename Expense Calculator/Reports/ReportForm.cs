@@ -119,147 +119,8 @@ namespace Expense_Calculator.Reports
             }
         }
 
-
-        //private void btnExportPdf_Click(object sender, EventArgs e)
-        //{
-        //    if (dgvReport.Rows.Count == 0)
-        //    {
-        //        DisplayMessage("لا توجد بيانات للتصدير", Color.White, Color.DarkRed);
-        //        return;
-        //    }
-
-        //    SaveFileDialog saveFileDialog = new SaveFileDialog
-        //    {
-        //        Filter = "PDF Files (*.pdf)|*.pdf",
-        //        Title = "حفظ التقرير كملف PDF"
-        //    };
-
-        //    if (saveFileDialog.ShowDialog() == DialogResult.OK)
-        //    {
-        //        try
-        //        {
-        //            using (FileStream stream = new FileStream(saveFileDialog.FileName, FileMode.Create))
-        //            {
-        //                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-        //                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-        //                pdfDoc.Open();
-
-        //                // Add company name
-        //                var titleFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 16, iTextSharp.text.Font.BOLD);
-        //                var companyName = new Paragraph("معمل سما دجلة لصناعة الثرمستون", titleFont)
-        //                {
-        //                    Alignment = Element.ALIGN_CENTER
-        //                };
-        //                pdfDoc.Add(companyName);
-
-        //                // Add report title
-        //                var reportTitle = new Paragraph("تقرير الصرفيات", titleFont)
-        //                {
-        //                    Alignment = Element.ALIGN_CENTER
-        //                };
-        //                pdfDoc.Add(reportTitle);
-
-        //                // Add date range
-        //                var dateFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.NORMAL);
-        //                var dateRange = new Paragraph($"الفترة من: {dtpFromDate.Value.ToShortDateString()} إلى: {dtpToDate.Value.ToShortDateString()}", dateFont)
-        //                {
-        //                    Alignment = Element.ALIGN_CENTER
-        //                };
-        //                pdfDoc.Add(dateRange);
-
-        //                pdfDoc.Add(new Paragraph("\n")); // Add spacing
-
-        //                // Create a table
-        //                PdfPTable pdfTable = new PdfPTable(dgvReport.Columns.Count)
-        //                {
-        //                    WidthPercentage = 100,
-        //                    RunDirection = PdfWriter.RUN_DIRECTION_RTL // For Arabic alignment
-        //                };
-
-        //                // Set column widths
-        //                pdfTable.SetWidths(new float[] { 2f, 2f, 2f, 2f, 2f }); // Adjust column widths as needed
-
-        //                // Add headers
-        //                var headerFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD);
-        //                foreach (DataGridViewColumn column in dgvReport.Columns)
-        //                {
-        //                    PdfPCell headerCell = new PdfPCell(new Phrase(column.HeaderText, headerFont))
-        //                    {
-        //                        BackgroundColor = BaseColor.LIGHT_GRAY,
-        //                        HorizontalAlignment = Element.ALIGN_CENTER,
-        //                        Padding = 5
-        //                    };
-        //                    pdfTable.AddCell(headerCell);
-        //                }
-
-        //                // Add rows
-        //                var cellFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10);
-        //                decimal overallTotal = 0;
-        //                foreach (DataGridViewRow row in dgvReport.Rows)
-        //                {
-        //                    foreach (DataGridViewCell cell in row.Cells)
-        //                    {
-        //                        string value = cell.Value?.ToString() ?? string.Empty;
-
-        //                        PdfPCell dataCell = new PdfPCell(new Phrase(value, cellFont))
-        //                        {
-        //                            HorizontalAlignment = Element.ALIGN_RIGHT, // Right-align for Arabic
-        //                            Padding = 5
-        //                        };
-        //                        pdfTable.AddCell(dataCell);
-
-        //                        // Calculate overall total for the "الإجمالي اليومي" column
-        //                        if (dgvReport.Columns[cell.ColumnIndex].HeaderText == "الإجمالي اليومي" && decimal.TryParse(value, out decimal numericValue))
-        //                        {
-        //                            overallTotal += numericValue;
-        //                        }
-        //                    }
-        //                }
-
-        //                // Add overall total row
-        //                PdfPCell totalLabelCell = new PdfPCell(new Phrase("الإجمالي الكلي:", headerFont))
-        //                {
-        //                    Colspan = dgvReport.Columns.Count - 1, // Span across all columns except the last
-        //                    HorizontalAlignment = Element.ALIGN_CENTER,
-        //                    Padding = 5
-        //                };
-        //                pdfTable.AddCell(totalLabelCell);
-
-        //                PdfPCell totalValueCell = new PdfPCell(new Phrase(overallTotal.ToString("N2"), headerFont))
-        //                {
-        //                    HorizontalAlignment = Element.ALIGN_RIGHT,
-        //                    Padding = 5
-        //                };
-        //                pdfTable.AddCell(totalValueCell);
-
-        //                pdfDoc.Add(pdfTable);
-
-        //                pdfDoc.Close();
-        //                stream.Close();
-        //            }
-
-        //            //lblMessage.Text = "تم تصدير التقرير بنجاح";
-        //            //lblMessage.ForeColor = Color.White;
-        //            //lblMessage.BackColor = Color.Green;
-
-        //            DisplayMessage("تم تصدير التقرير بنجاح", Color.White, Color.Green);
-
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            //lblMessage.Text = $"خطأ أثناء التصدير إلى PDF: {ex.Message}";
-        //            //lblMessage.ForeColor = Color.White;
-        //            //lblMessage.BackColor = Color.DarkRed;
-        //            DisplayMessage($"خطأ أثناء التصدير إلى PDF: {ex.Message}", Color.White, Color.DarkRed);
-        //        }
-        //    }
-        //}
-
-
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-           
-
             if (dgvReport.Rows.Count == 0)
             {
                 DisplayMessage("لا توجد بيانات للتصدير", Color.White, Color.DarkRed);
@@ -450,7 +311,6 @@ namespace Expense_Calculator.Reports
             }
         }
 
-
         private void btnSetDefaultPrinter_Click(object sender, EventArgs e)
         {
             PrintDialog printDialog = new PrintDialog();
@@ -480,8 +340,6 @@ namespace Expense_Calculator.Reports
                 printDocument1.PrinterSettings.PrinterName = defaultPrinter;
             }
         }
-
-
 
         //private int currentRowIndex = 0; // Add this as a class-level variable to track progress.
 
@@ -615,7 +473,6 @@ namespace Expense_Calculator.Reports
             }
         }
 
-
         private async void DisplayMessage(string message, Color textColor, Color backgroundColor, int duration = 3000)
         {
             lblMessage.Text = message;
@@ -642,16 +499,18 @@ namespace Expense_Calculator.Reports
             int rowIndex = selectedRow.Index;
 
             // Retrieve data from the selected row
-            DateTime expenseDate = Convert.ToDateTime(selectedRow.Cells["التاريخ"].Value);
+            DateTime originalExpenseDate = Convert.ToDateTime(selectedRow.Cells["التاريخ"].Value); // Original date
             decimal maintenance = Convert.ToDecimal(selectedRow.Cells["مصاريف الصيانة"].Value);
             decimal restaurant = Convert.ToDecimal(selectedRow.Cells["مصاريف المطعم"].Value);
             decimal purchases = Convert.ToDecimal(selectedRow.Cells["مصاريف المشتريات"].Value);
 
             // Show an input dialog or custom form for editing
-            using (EditDialog editDialog = new EditDialog(expenseDate, maintenance, restaurant, purchases))
+            using (EditDialog editDialog = new EditDialog(originalExpenseDate, maintenance, restaurant, purchases))
             {
                 if (editDialog.ShowDialog() == DialogResult.OK)
                 {
+                    DateTime updatedExpenseDate = editDialog.ExpenseDate;
+
                     // Update the database
                     try
                     {
@@ -660,23 +519,26 @@ namespace Expense_Calculator.Reports
                             connection.Open();
                             string query = @"
                         UPDATE Expenses
-                        SET MaintenanceExpenditure = @Maintenance,
+                        SET ExpenseDate = @UpdatedExpenseDate,
+                            MaintenanceExpenditure = @Maintenance,
                             RestaurantExpenditure = @Restaurant,
                             PurchasesExpenditure = @Purchases
-                        WHERE ExpenseDate = @ExpenseDate";
+                        WHERE ExpenseDate = @OriginalExpenseDate";
 
                             using (SqlCommand command = new SqlCommand(query, connection))
                             {
-                                command.Parameters.AddWithValue("@ExpenseDate", expenseDate);
+                                command.Parameters.AddWithValue("@UpdatedExpenseDate", updatedExpenseDate); // Save updated date and time
                                 command.Parameters.AddWithValue("@Maintenance", editDialog.MaintenanceExpenditure);
                                 command.Parameters.AddWithValue("@Restaurant", editDialog.RestaurantExpenditure);
                                 command.Parameters.AddWithValue("@Purchases", editDialog.PurchasesExpenditure);
+                                command.Parameters.AddWithValue("@OriginalExpenseDate", originalExpenseDate); // Match original record
 
                                 command.ExecuteNonQuery();
                             }
                         }
 
                         // Update the DataGridView
+                        dgvReport.Rows[rowIndex].Cells["التاريخ"].Value = updatedExpenseDate; // Update date with time
                         dgvReport.Rows[rowIndex].Cells["مصاريف الصيانة"].Value = editDialog.MaintenanceExpenditure;
                         dgvReport.Rows[rowIndex].Cells["مصاريف المطعم"].Value = editDialog.RestaurantExpenditure;
                         dgvReport.Rows[rowIndex].Cells["مصاريف المشتريات"].Value = editDialog.PurchasesExpenditure;
