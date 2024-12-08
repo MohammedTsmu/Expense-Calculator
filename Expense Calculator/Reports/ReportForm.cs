@@ -23,6 +23,10 @@ namespace Expense_Calculator.Reports
         {
             InitializeComponent();
             InitializePrintDocument();
+
+            // In the form's Load event or Designer
+            dgvReport.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvReport.MultiSelect = false; // Allow selecting only one row at a time
         }
 
         private void btnMainForm_Click(object sender, EventArgs e)
@@ -624,6 +628,106 @@ namespace Expense_Calculator.Reports
             lblMessage.Text = string.Empty;
             lblMessage.ForeColor = Color.Black;
             lblMessage.BackColor = Color.Gray;
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvReport.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("يرجى تحديد سجل لتعديله", "تحذير", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DataGridViewRow selectedRow = dgvReport.SelectedRows[0];
+            int rowIndex = selectedRow.Index;
+
+            // Retrieve data from the selected row
+            DateTime expenseDate = Convert.ToDateTime(selectedRow.Cells["التاريخ"].Value);
+            decimal maintenance = Convert.ToDecimal(selectedRow.Cells["مصاريف الصيانة"].Value);
+            decimal restaurant = Convert.ToDecimal(selectedRow.Cells["مصاريف المطعم"].Value);
+            decimal purchases = Convert.ToDecimal(selectedRow.Cells["مصاريف المشتريات"].Value);
+
+            // Show an input dialog or custom form for editing
+            using (EditDialog editDialog = new EditDialog(expenseDate, maintenance, restaurant, purchases))
+            {
+                if (editDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Update the database
+                    try
+                    {
+                        using (SqlConnection connection = new SqlConnection(AppConfig.GetConnectionString()))
+                        {
+                            connection.Open();
+                            string query = @"
+                        UPDATE Expenses
+                        SET MaintenanceExpenditure = @Maintenance,
+                            RestaurantExpenditure = @Restaurant,
+                            PurchasesExpenditure = @Purchases
+                        WHERE ExpenseDate = @ExpenseDate";
+
+                            using (SqlCommand command = new SqlCommand(query, connection))
+                            {
+                                command.Parameters.AddWithValue("@ExpenseDate", expenseDate);
+                                command.Parameters.AddWithValue("@Maintenance", editDialog.MaintenanceExpenditure);
+                                command.Parameters.AddWithValue("@Restaurant", editDialog.RestaurantExpenditure);
+                                command.Parameters.AddWithValue("@Purchases", editDialog.PurchasesExpenditure);
+
+                                command.ExecuteNonQuery();
+                            }
+                        }
+
+                        // Update the DataGridView
+                        dgvReport.Rows[rowIndex].Cells["مصاريف الصيانة"].Value = editDialog.MaintenanceExpenditure;
+                        dgvReport.Rows[rowIndex].Cells["مصاريف المطعم"].Value = editDialog.RestaurantExpenditure;
+                        dgvReport.Rows[rowIndex].Cells["مصاريف المشتريات"].Value = editDialog.PurchasesExpenditure;
+
+                        MessageBox.Show("تم تعديل السجل بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"خطأ أثناء تعديل السجل: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvReport.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("يرجى تحديد سجل لحذفه", "تحذير", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var result = MessageBox.Show("هل أنت متأكد أنك تريد حذف هذا السجل؟", "تأكيد الحذف", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                DataGridViewRow selectedRow = dgvReport.SelectedRows[0];
+                DateTime expenseDate = Convert.ToDateTime(selectedRow.Cells["التاريخ"].Value);
+
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(AppConfig.GetConnectionString()))
+                    {
+                        connection.Open();
+                        string query = "DELETE FROM Expenses WHERE ExpenseDate = @ExpenseDate";
+
+                        using (SqlCommand command = new SqlCommand(query, connection))
+                        {
+                            command.Parameters.AddWithValue("@ExpenseDate", expenseDate);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+
+                    // Remove the row from DataGridView
+                    dgvReport.Rows.Remove(selectedRow);
+                    MessageBox.Show("تم حذف السجل بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"خطأ أثناء حذف السجل: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
     }

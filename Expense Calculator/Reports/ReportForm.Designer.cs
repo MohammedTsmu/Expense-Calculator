@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportForm));
             this.pnTop = new System.Windows.Forms.Panel();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnExportExcel = new System.Windows.Forms.Button();
             this.btnFilter = new System.Windows.Forms.Button();
@@ -53,6 +56,8 @@
             // pnTop
             // 
             this.pnTop.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pnTop.Controls.Add(this.btnEdit);
+            this.pnTop.Controls.Add(this.btnDelete);
             this.pnTop.Controls.Add(this.btnPrint);
             this.pnTop.Controls.Add(this.btnExportExcel);
             this.pnTop.Controls.Add(this.btnFilter);
@@ -66,12 +71,40 @@
             this.pnTop.Size = new System.Drawing.Size(1062, 184);
             this.pnTop.TabIndex = 14;
             // 
+            // btnEdit
+            // 
+            this.btnEdit.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnEdit.Image = global::Expense_Calculator.Properties.Resources.Edit_Text_File;
+            this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEdit.Location = new System.Drawing.Point(225, 128);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(199, 50);
+            this.btnEdit.TabIndex = 6;
+            this.btnEdit.Text = "تعديل";
+            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnDelete.Image = global::Expense_Calculator.Properties.Resources.Delete;
+            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDelete.Location = new System.Drawing.Point(20, 128);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(199, 50);
+            this.btnDelete.TabIndex = 7;
+            this.btnDelete.Text = "حذف";
+            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // btnPrint
             // 
             this.btnPrint.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnPrint.Image = global::Expense_Calculator.Properties.Resources.Print;
             this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Location = new System.Drawing.Point(287, 129);
+            this.btnPrint.Location = new System.Drawing.Point(430, 129);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(199, 50);
             this.btnPrint.TabIndex = 5;
@@ -85,7 +118,7 @@
             this.btnExportExcel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnExportExcel.Image = global::Expense_Calculator.Properties.Resources.Microsoft_Excel_2019;
             this.btnExportExcel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportExcel.Location = new System.Drawing.Point(494, 129);
+            this.btnExportExcel.Location = new System.Drawing.Point(637, 129);
             this.btnExportExcel.Name = "btnExportExcel";
             this.btnExportExcel.Size = new System.Drawing.Size(199, 50);
             this.btnExportExcel.TabIndex = 4;
@@ -99,7 +132,7 @@
             this.btnFilter.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnFilter.Image = global::Expense_Calculator.Properties.Resources.View;
             this.btnFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFilter.Location = new System.Drawing.Point(701, 128);
+            this.btnFilter.Location = new System.Drawing.Point(844, 128);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(199, 50);
             this.btnFilter.TabIndex = 3;
@@ -152,6 +185,15 @@
             // 
             this.dgvReport.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("LBC", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.NullValue = null;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvReport.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvReport.Location = new System.Drawing.Point(0, 0);
             this.dgvReport.Name = "dgvReport";
@@ -186,7 +228,7 @@
             // 
             this.lblOverallTotal.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.lblOverallTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblOverallTotal.Font = new System.Drawing.Font("LBC", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOverallTotal.Font = new System.Drawing.Font("LBC", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOverallTotal.ForeColor = System.Drawing.Color.Black;
             this.lblOverallTotal.Location = new System.Drawing.Point(0, 0);
             this.lblOverallTotal.Name = "lblOverallTotal";
@@ -259,5 +301,7 @@
         private System.Windows.Forms.Button btnPrint;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
