@@ -484,50 +484,54 @@ namespace Expense_Calculator.Reports
             int rowIndex = selectedRow.Index;
 
             // Retrieve data from the selected row
-            DateTime expenseDate = Convert.ToDateTime(selectedRow.Cells["التاريخ"].Value);
+            DateTime originalExpenseDate = Convert.ToDateTime(selectedRow.Cells["التاريخ"].Value);
             decimal maintenance = Convert.ToDecimal(selectedRow.Cells["مصاريف الصيانة"].Value);
             decimal restaurant = Convert.ToDecimal(selectedRow.Cells["مصاريف المطعم"].Value);
             decimal purchases = Convert.ToDecimal(selectedRow.Cells["مصاريف المشتريات"].Value);
 
             // Show an input dialog or custom form for editing
-            using (EditDialog editDialog = new EditDialog(expenseDate, maintenance, restaurant, purchases))
+            using (EditDialog editDialog = new EditDialog(originalExpenseDate, maintenance, restaurant, purchases))
             {
                 if (editDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // Update the database
+                    DateTime updatedExpenseDate = editDialog.ExpenseDate;
+
                     try
                     {
                         using (SqlConnection connection = new SqlConnection(AppConfig.GetConnectionString()))
                         {
                             connection.Open();
                             string query = @"
-                    UPDATE Expenses
-                    SET MaintenanceExpenditure = @Maintenance,
-                        RestaurantExpenditure = @Restaurant,
-                        PurchasesExpenditure = @Purchases
-                    WHERE ExpenseDate = @ExpenseDate";
+                        UPDATE Expenses
+                        SET ExpenseDate = @UpdatedExpenseDate,
+                            MaintenanceExpenditure = @Maintenance,
+                            RestaurantExpenditure = @Restaurant,
+                            PurchasesExpenditure = @Purchases
+                        WHERE ExpenseDate = @OriginalExpenseDate";
 
                             using (SqlCommand command = new SqlCommand(query, connection))
                             {
-                                command.Parameters.AddWithValue("@ExpenseDate", expenseDate);
+                                command.Parameters.AddWithValue("@UpdatedExpenseDate", updatedExpenseDate);
                                 command.Parameters.AddWithValue("@Maintenance", editDialog.MaintenanceExpenditure);
                                 command.Parameters.AddWithValue("@Restaurant", editDialog.RestaurantExpenditure);
                                 command.Parameters.AddWithValue("@Purchases", editDialog.PurchasesExpenditure);
+                                command.Parameters.AddWithValue("@OriginalExpenseDate", originalExpenseDate);
 
                                 command.ExecuteNonQuery();
                             }
                         }
 
-                        // Update the DataGridView
-                        dgvReport.Rows[rowIndex].Cells["مصاريف الصيانة"].Value = editDialog.MaintenanceExpenditure;
-                        dgvReport.Rows[rowIndex].Cells["مصاريف المطعم"].Value = editDialog.RestaurantExpenditure;
-                        dgvReport.Rows[rowIndex].Cells["مصاريف المشتريات"].Value = editDialog.PurchasesExpenditure;
+                        // Update DataGridView row
+                        selectedRow.Cells["التاريخ"].Value = updatedExpenseDate;
+                        selectedRow.Cells["مصاريف الصيانة"].Value = editDialog.MaintenanceExpenditure;
+                        selectedRow.Cells["مصاريف المطعم"].Value = editDialog.RestaurantExpenditure;
+                        selectedRow.Cells["مصاريف المشتريات"].Value = editDialog.PurchasesExpenditure;
 
-                        // Recalculate and update the daily total for the edited row
+                        // Recalculate and update daily total
                         decimal dailyTotal = editDialog.MaintenanceExpenditure + editDialog.RestaurantExpenditure + editDialog.PurchasesExpenditure;
-                        dgvReport.Rows[rowIndex].Cells["الإجمالي اليومي"].Value = dailyTotal;
+                        selectedRow.Cells["الإجمالي اليومي"].Value = dailyTotal;
 
-                        // Update the overall total
+                        // Update overall total label
                         UpdateOverallTotal();
 
                         MessageBox.Show("تم تعديل السجل بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -589,10 +593,9 @@ namespace Expense_Calculator.Reports
 
             foreach (DataGridViewRow row in dgvReport.Rows)
             {
-                if (!row.IsNewRow) // Exclude the new row placeholder
+                if (!row.IsNewRow) // Skip the "new row" placeholder
                 {
-                    decimal dailyTotal = 0;
-                    if (decimal.TryParse(row.Cells["الإجمالي اليومي"]?.Value?.ToString(), out dailyTotal))
+                    if (decimal.TryParse(row.Cells["الإجمالي اليومي"]?.Value?.ToString(), out decimal dailyTotal))
                     {
                         overallTotal += dailyTotal;
                     }
@@ -601,5 +604,6 @@ namespace Expense_Calculator.Reports
 
             lblOverallTotal.Text = $"الإجمالي الكلي: {overallTotal}";
         }
+
     }
 }
