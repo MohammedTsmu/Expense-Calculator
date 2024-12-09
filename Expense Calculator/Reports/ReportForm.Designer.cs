@@ -184,6 +184,7 @@
             // dgvReport
             // 
             this.dgvReport.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvReport.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -227,7 +228,7 @@
             // 
             // lblOverallTotal
             // 
-            this.lblOverallTotal.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblOverallTotal.BackColor = System.Drawing.Color.Turquoise;
             this.lblOverallTotal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblOverallTotal.Font = new System.Drawing.Font("LBC", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOverallTotal.ForeColor = System.Drawing.Color.Black;

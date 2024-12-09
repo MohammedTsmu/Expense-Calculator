@@ -29,15 +29,6 @@ namespace Expense_Calculator.Reports
             dgvReport.MultiSelect = false; // Allow selecting only one row at a time
         }
 
-        private void btnMainForm_Click(object sender, EventArgs e)
-        {
-            // Uncomment this if you want to open the MainForm
-            // MainForm mainForm = new MainForm();
-            // mainForm.ShowDialog();
-
-            // this.Close();
-        }
-
         private void btnFilter_Click(object sender, EventArgs e)
         {
             string connectionString = AppConfig.GetConnectionString();
@@ -254,12 +245,6 @@ namespace Expense_Calculator.Reports
                 }
             }
         }
-
-        //private void btnPrint_Click(object sender, EventArgs e)
-        //{
-        //    printPreviewDialog1.Document = printDocument1;
-        //    printPreviewDialog1.ShowDialog();
-        //}
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
@@ -499,18 +484,16 @@ namespace Expense_Calculator.Reports
             int rowIndex = selectedRow.Index;
 
             // Retrieve data from the selected row
-            DateTime originalExpenseDate = Convert.ToDateTime(selectedRow.Cells["التاريخ"].Value); // Original date
+            DateTime expenseDate = Convert.ToDateTime(selectedRow.Cells["التاريخ"].Value);
             decimal maintenance = Convert.ToDecimal(selectedRow.Cells["مصاريف الصيانة"].Value);
             decimal restaurant = Convert.ToDecimal(selectedRow.Cells["مصاريف المطعم"].Value);
             decimal purchases = Convert.ToDecimal(selectedRow.Cells["مصاريف المشتريات"].Value);
 
             // Show an input dialog or custom form for editing
-            using (EditDialog editDialog = new EditDialog(originalExpenseDate, maintenance, restaurant, purchases))
+            using (EditDialog editDialog = new EditDialog(expenseDate, maintenance, restaurant, purchases))
             {
                 if (editDialog.ShowDialog() == DialogResult.OK)
                 {
-                    DateTime updatedExpenseDate = editDialog.ExpenseDate;
-
                     // Update the database
                     try
                     {
@@ -518,30 +501,34 @@ namespace Expense_Calculator.Reports
                         {
                             connection.Open();
                             string query = @"
-                        UPDATE Expenses
-                        SET ExpenseDate = @UpdatedExpenseDate,
-                            MaintenanceExpenditure = @Maintenance,
-                            RestaurantExpenditure = @Restaurant,
-                            PurchasesExpenditure = @Purchases
-                        WHERE ExpenseDate = @OriginalExpenseDate";
+                    UPDATE Expenses
+                    SET MaintenanceExpenditure = @Maintenance,
+                        RestaurantExpenditure = @Restaurant,
+                        PurchasesExpenditure = @Purchases
+                    WHERE ExpenseDate = @ExpenseDate";
 
                             using (SqlCommand command = new SqlCommand(query, connection))
                             {
-                                command.Parameters.AddWithValue("@UpdatedExpenseDate", updatedExpenseDate); // Save updated date and time
+                                command.Parameters.AddWithValue("@ExpenseDate", expenseDate);
                                 command.Parameters.AddWithValue("@Maintenance", editDialog.MaintenanceExpenditure);
                                 command.Parameters.AddWithValue("@Restaurant", editDialog.RestaurantExpenditure);
                                 command.Parameters.AddWithValue("@Purchases", editDialog.PurchasesExpenditure);
-                                command.Parameters.AddWithValue("@OriginalExpenseDate", originalExpenseDate); // Match original record
 
                                 command.ExecuteNonQuery();
                             }
                         }
 
                         // Update the DataGridView
-                        dgvReport.Rows[rowIndex].Cells["التاريخ"].Value = updatedExpenseDate; // Update date with time
                         dgvReport.Rows[rowIndex].Cells["مصاريف الصيانة"].Value = editDialog.MaintenanceExpenditure;
                         dgvReport.Rows[rowIndex].Cells["مصاريف المطعم"].Value = editDialog.RestaurantExpenditure;
                         dgvReport.Rows[rowIndex].Cells["مصاريف المشتريات"].Value = editDialog.PurchasesExpenditure;
+
+                        // Recalculate and update the daily total for the edited row
+                        decimal dailyTotal = editDialog.MaintenanceExpenditure + editDialog.RestaurantExpenditure + editDialog.PurchasesExpenditure;
+                        dgvReport.Rows[rowIndex].Cells["الإجمالي اليومي"].Value = dailyTotal;
+
+                        // Update the overall total
+                        UpdateOverallTotal();
 
                         MessageBox.Show("تم تعديل السجل بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -583,6 +570,10 @@ namespace Expense_Calculator.Reports
 
                     // Remove the row from DataGridView
                     dgvReport.Rows.Remove(selectedRow);
+
+                    // Update the overall total
+                    UpdateOverallTotal();
+
                     MessageBox.Show("تم حذف السجل بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
@@ -592,5 +583,23 @@ namespace Expense_Calculator.Reports
             }
         }
 
+        private void UpdateOverallTotal()
+        {
+            decimal overallTotal = 0;
+
+            foreach (DataGridViewRow row in dgvReport.Rows)
+            {
+                if (!row.IsNewRow) // Exclude the new row placeholder
+                {
+                    decimal dailyTotal = 0;
+                    if (decimal.TryParse(row.Cells["الإجمالي اليومي"]?.Value?.ToString(), out dailyTotal))
+                    {
+                        overallTotal += dailyTotal;
+                    }
+                }
+            }
+
+            lblOverallTotal.Text = $"الإجمالي الكلي: {overallTotal}";
+        }
     }
 }

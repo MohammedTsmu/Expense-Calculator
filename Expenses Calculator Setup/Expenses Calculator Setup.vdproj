@@ -940,12 +940,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3C6F8CC1EB9AC4DC1F7B98CC4766E076"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9746403A43C84C69A23654541E196FE8"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1669,6 +1663,12 @@
         "OwnerKey" = "8:_61C1283E8B8A5A109AF79735CE5EFA4D"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3C6F8CC1EB9AC4DC1F7B98CC4766E076"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -1687,6 +1687,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -1703,6 +1711,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -5734,15 +5750,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Expenses Calculator"
-        "ProductCode" = "8:{59530F38-B16D-4E70-9A74-C5DDEB3355F7}"
-        "PackageCode" = "8:{0A628668-4DE4-4A3D-86B7-C5F776272276}"
+        "ProductCode" = "8:{32111523-3E5B-431D-872F-34AF21B2E8A7}"
+        "PackageCode" = "8:{F9757AF6-C048-42A9-AA99-DD151D8EF7B8}"
         "UpgradeCode" = "8:{2DFDD315-244C-4F57-AE5A-F450E84A8599}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:Dr. Mohammed Studio"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -5750,7 +5766,7 @@
         "Subject" = "8:"
         "ARPCONTACT" = "8:Dr. Mohammed Studio"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:v1.0.0"
+        "ARPCOMMENTS" = "8:v1.0.1"
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:_FB99969B336C44FE9C1E7F0AF41A2CB0"
         "ARPIconIndex" = "3:0"
@@ -5859,7 +5875,7 @@
             {
             "Name" = "8:Expense Calculator"
             "Arguments" = "8:"
-            "Description" = "8:v1.0.0"
+            "Description" = "8:v1.0.1"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
@@ -5873,7 +5889,7 @@
             {
             "Name" = "8:Expense Calculator"
             "Arguments" = "8:"
-            "Description" = "8:v1.0.0"
+            "Description" = "8:v1.0.1"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"

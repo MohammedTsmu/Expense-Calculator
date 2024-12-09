@@ -63,47 +63,6 @@ namespace Expense_Calculator
             }
         }
 
-        //protected override void OnFormClosing(FormClosingEventArgs e)
-        //{
-        //    base.OnFormClosing(e);
-
-        //    // Confirm application close
-        //    var result = MessageBox.Show("هل تريد حقاً إغلاق التطبيق؟", "تأكيد الإغلاق", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-        //    if (result != DialogResult.Yes)
-        //    {
-        //        e.Cancel = true;
-        //        return;
-        //    }
-
-        //    // Perform automatic backup on close
-        //    string backupFolder = Properties.Settings.Default.BackupFolder;
-        //    if (!string.IsNullOrEmpty(backupFolder))
-        //    {
-        //        try
-        //        {
-        //            string databaseName = AppConfig.DatabaseName;
-        //            string backupFileName = Path.Combine(backupFolder, $"{databaseName}_{DateTime.Now:yyyyMMddHHmmss}.bak");
-
-        //            using (SqlConnection connection = new SqlConnection(AppConfig.GetConnectionString()))
-        //            {
-        //                connection.Open();
-        //                string query = $"BACKUP DATABASE [{databaseName}] TO DISK = @BackupFile WITH FORMAT";
-        //                using (SqlCommand command = new SqlCommand(query, connection))
-        //                {
-        //                    command.Parameters.AddWithValue("@BackupFile", backupFileName);
-        //                    command.ExecuteNonQuery();
-        //                }
-        //            }
-
-        //            MessageBox.Show("تم النسخ الاحتياطي بنجاح عند إغلاق التطبيق.", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show($"خطأ أثناء النسخ الاحتياطي: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        }
-        //    }
-        //}
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Properties.Settings.Default.EnableAutoBackup)
